@@ -1,0 +1,265 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!--Header section start-->
+@*<header class="header header-transparent header-sticky d-lg-block d-none @(TempData["firstpage"] != null ? "header-absolute" : "")">*@
+<header class="header header-transparent header-sticky d-lg-block d-none">
+    <div class="header-deafult-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+                    <!--Logo Area Start-->
+                    <div class="logo-area">
+                        <a asp-action="Index" asp-controller="Home">
+                            <img src="~/images/logo.png" class="imglogo" alt="پرشین درب جنوب" title="پرشین درب جنوب">
+                        </a>
+                    </div>
+                    <!--Logo Area End-->
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-4 d-none d-lg-block col-12">
+                    <!--Header Menu Area Start-->
+                    <div class="header-menu-area text-center">
+                        <nav class="main-menu">
+                            <ul>
+                                <li>
+                                    <a asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+                                </li>
+                                <li><a asp-controller="Product" asp-action="Search">محصولات</a></li>
+                                @*<li>
+                                        <a href="blog.html">فروشگاه</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="about.html">درباره ما</a></li>
+                                            <li><a href="compare.html">مقایسه کالا</a></li>
+                                            <li><a href="cart.html">سبد خرید</a></li>
+                                            <li><a href="checkout.html">پرداخت</a></li>
+                                            <li><a href="wishlist.html">کالاهای مورد علاقه</a></li>
+                                            <li><a href="my-account.html">حساب کاربری</a></li>
+                                            <li><a href="login-register.html">ورود به حساب</a></li>
+                                            <li><a href="faq.html">سوالات متداول</a></li>
+                                            <li><a href="404.html">ارور 404</a></li>
+                                        </ul>
+                                    </li>*@
+                                <li><a asp-controller="Blog" asp-action="Index">مقالات</a></li>
+                                <li><a asp-controller="Home" asp-action="About">درباره ما</a></li>
+                                <li><a asp-controller="Home" asp-action="ContactUs">تماس با ما</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--Header Menu Area End-->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-5 col-12">
+                    <!--Header Search And Mini Cart Area Start-->
+                    <div class="header-search-cart-area">
+                        <ul>
+                            <li><a class="header-search-toggle" href="#"><i class="flaticon-magnifying-glass"></i></a></li>
+                            <li class="currency-menu">
+                                <a href="#"><i class="flaticon-user" style=@(User.Identity.IsAuthenticated ? "color:lawngreen":"color:black")></i></a>
+                                <!--Crunccy dropdown-->
+                                <ul class="currency-dropdown">
+                                    <li>
+                                        <a asp-controller="Account" asp-action="UserPanel" class="rtl-class">حساب کاربری من</a>
+                                        <ul class="rtl-class">
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <li><a asp-controller="Account" asp-action="UserPanel">پروفایل شخصی</a></li>
+                                                <li><a asp-controller="Invoice" asp-action="ShowPurchuseCart">سبد خرید</a></li>
+                                                <li><a href="/Account/UserPanel#orders">پرداخت ها</a></li>
+                                                <li><a asp-controller="Account" asp-action="Logout">خروج</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a asp-controller="Account" asp-action="Login">ورود</a></li>
+                                                <li><a asp-controller="Account" asp-action="Register">ثبت نام</a></li>
+                                            }
+
+                                        </ul>
+                                    </li>
+                                    <!--Account Currency End-->
+                                </ul>
+                                <!--Crunccy dropdown-->
+                            </li>
+                            <li class="mini-cart">
+                                <!--Mini Cart Dropdown Start-->
+                                @await Html.PartialAsync("~/Views/Shared/Header/_PartialMiniCart.cshtml")
+                                <!--Mini Cart Dropdown End-->
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Header Search And Mini Cart Area End-->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--Header section end-->
+<!--Header Mobile section start-->
+<header class="header-mobile d-block d-lg-none">
+    <div class="header-bottom menu-right">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-mobile-navigation d-block d-lg-none">
+                        <div class="row align-items-center">
+                            <div class="col-6 col-md-6">
+                                <div class="header-logo">
+                                    <a href="index.html">
+                                        <img height="100" width="100" src="~/images/logo.png" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <div class="mobile-navigation text-right">
+                                    <div class="header-icon-wrapper">
+                                        <ul class="icon-list justify-content-end">
+                                            <li>
+                                                <div class="header-cart-icon">
+                                                    <a asp-controller="Invoice" asp-action="ShowPurchuseCart"><i class="flaticon-shopping-cart"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" class="mobile-menu-icon" id="mobile-menu-trigger"><i class="fa fa-bars"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Mobile Menu start-->
+            <div class="row">
+                <div class="col-12 d-flex d-lg-none">
+                    <div class="mobile-menu"></div>
+                </div>
+            </div>
+            <!--Mobile Menu end-->
+
+        </div>
+    </div>
+</header>
+<!--Header Mobile section end-->
+<!-- Offcanvas Menu Start -->
+<div class="offcanvas-mobile-menu d-block d-lg-none" id="offcanvas-mobile-menu">
+    <a href="javascript:void(0)" class="offcanvas-menu-close" id="offcanvas-menu-close-trigger">
+        <i class="fa fa-times"></i>
+    </a>
+
+    <div class="offcanvas-wrapper">
+
+        <div class="offcanvas-inner-content">
+            @*<div class="offcanvas-mobile-search-area">
+                    <form action="#">
+                        <input class="rtl-class" type="search" placeholder="جستجو ...">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>*@
+            <nav class="offcanvas-navigation">
+                <ul class="rtl-class">
+                    <li class="menu-item-has-children">
+                        <a asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a asp-controller="Product" asp-action="Search">فروشگاه</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a asp-controller="Blog" asp-action="Index">مقالات</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a asp-controller="Home" asp-action="About">درباره ما</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a asp-controller="Home" asp-action="ContactUs">تماس با ما</a>
+                    </li>
+                    @*<li><a href="shop.html">جدیدترین محصولات</a></li>
+                        <li class="menu-item-has-children">
+                            <a href="#">صفحات</a>
+                            <ul class="submenu2">
+                                <li><a href="about.html">درباره ما</a></li>
+                                <li><a href="compare.html">مقایسه کالا</a></li>
+                                <li><a href="cart.html">سبد خرید</a></li>
+                                <li><a href="checkout.html">پرداخت</a></li>
+                                <li><a href="wishlist.html">کالاهای مورد علاقه</a></li>
+                                <li><a href="my-account.html">حساب کاربری</a></li>
+                                <li><a href="login-register.html">ورود به حساب</a></li>
+                                <li><a href="faq.html">سوالات متداول</a></li>
+                                <li><a href="404.html">ارور 404</a></li>
+                            </ul>
+                        </li>*@
+
+                </ul>
+            </nav>
+
+            <div class="offcanvas-settings">
+                <nav class="offcanvas-navigation">
+                    <ul class="rtl-class">
+                        <li class="menu-item-has-children">
+                            <a href="#">حساب کاربری </a>
+                            <ul class="submenu2">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a asp-controller="Account" asp-action="Profile">پروفایل کاربری</a></li>
+                                    <li><a asp-controller="Invoice" asp-action="ShowPurchuseCart">سبد خرید</a></li>
+                                    <li><a asp-controller="Account" asp-action="LogOut">خروج</a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-controller="Account" asp-action="Login">ورود</a></li>
+                                    <li><a asp-controller="Account" asp-action="Register">ثبت نام</a></li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="offcanvas-widget-area">
+                <!--Off Canvas Widget Social Start-->
+                <div class="off-canvas-widget-social text-center">
+                    <a href="https://www.facebook.com/persiandoorsco" title="Facebook"><i class="fa fa-facebook fa-2x"></i></a>
+                    <a href="https://t.me/persiandoorsouthshz" title="Telegram"><i class="fa fa-telegram fa-2x"></i></a>
+                    <a href="https://www.instagram.com/persiandoorsouth" title="Instagram"><i class="fa fa-instagram fa-2x"></i></a>
+                </div>
+                <!--Off Canvas Widget Social End-->
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Offcanvas Menu End -->
+<!-- main-search start -->
+<div class="main-search-active">
+    <div class="sidebar-search-icon">
+        <button class="search-close"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="sidebar-search-input">
+        <form asp-action="Search" asp-controller="Product">
+            <div class="form-search">
+                <input list="dtSearch" name="name" id="search" class="input-text" value="" placeholder="مثال: درب نیلکا" type="search">
+                <datalist id="dtSearch">
+                    <!-- partial search goes here -->
+                </datalist>
+                <button>
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+        <p class="form-description rtl-class">پس از تایپ محصول مورد نظر کلید Enter را فشار دهید</p>
+    </div>
+</div>
+<!-- main-search start -->
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $("#search").keyup(function () {
+        var me = $(this);
+        $.post("/Product/_PartialSearch", { name: me.val() }, function (value) {
+            if (value != null) {
+                $("#dtSearch").html(value);
+            }
+        })
+    })
+</script>

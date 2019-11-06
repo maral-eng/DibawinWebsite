@@ -1,0 +1,26 @@
+﻿using DibawinWebsite.Areas.Identity.Data;
+using DibawinWebsite.Repository;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DibawinWebsite.Models
+{
+    public partial class ContactUs : IEntity<int>
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Comment { get; set; }
+        public DateTime RegdDateTime { get; set; }
+        public string Tags { get; set; }
+        public bool Status { get; set; }
+        public bool Approved { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
+        public string ApprovedByUserId { get; set; }
+        [ForeignKey("ApprovedByUserId")]
+        public virtual ApplicationUser ApprovedByUser { get; set; }
+    }
+}

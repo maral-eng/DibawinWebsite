@@ -1,0 +1,30 @@
+﻿
+.farsi-num {
+    font-family: 'NumIRANSans', Tahoma;
+}
+
+.breadcrumb-item {
+    float: right !important;
+}
+
+.wrapper,
+.box-header,
+.box-body {
+    direction: rtl !important;
+    text-align: right !important;
+}
+.rtl-class-center,
+.rtl-class-left,
+.rtl-class-right {
+    direction: rtl !important;
+}
+
+.rtl-class-right {
+    text-align: right !important;
+}
+.rtl-class-left {
+    text-align: right !important;
+}
+.rtl-class-center {
+    text-align: center !important;
+}

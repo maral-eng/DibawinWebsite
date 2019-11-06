@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title | دیباوین</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://aries-admin-templates.websitedesignmarketingagency.com/ariesadmin-rtl/images/favicon.ico">
+
+    <!-- Bootstrap 4.0-->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap/dist/css/bootstrap.css">
+
+    <!-- Bootstrap 4.0-->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap/dist/css/bootstrap-extend.css">
+
+    <!-- theme style -->
+    <link rel="stylesheet" href="~/shared/admin/ariesadmin/css/master_style.css">
+
+    <!-- Aries_admin skins. choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/shared/admin/ariesadmin/css/skins/_all-skins.css">
+
+    <!-- date picker -->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">
+
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css">
+
+
+    <link href="~/shared/admin/ariesadmin/css/customize.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        @* --------- Header & Menu --------- *@
+        @await Html.PartialAsync("~/Areas/Admin/Views/shared/header/_header.cshtml")
+        @await Html.PartialAsync("~/Areas/Admin/Views/shared/navigation/_aside.cshtml")
+
+        <div class="content-wrapper">
+            @* --------- Breadcrums --------- *@
+            @await Html.PartialAsync("~/Areas/Admin/Views/shared/header/_breadcrums.cshtml")
+
+            @RenderBody()
+        </div>
+        @* ------------- Footer ------------- *@
+        @await Html.PartialAsync("~/Areas/Admin/Views/shared/footer/_footer.cshtml")
+
+        @* --------- Setting Panel ---------- *@
+        @await Html.PartialAsync("~/Areas/Admin/Views/shared/footer/_footerAside.cshtml")
+
+    </div>
+
+    <!-- jQuery 3 -->
+    <script src="~/shared/admin/assets/vendor_components/jquery/dist/jquery.js"></script>
+
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/shared/admin/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
+
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+	  $.widget.bridge('uibutton', $.ui.button);
+    </script>
+
+    <!-- popper -->
+    <script src="~/shared/admin/assets/vendor_components/popper/dist/popper.min.js"></script>
+
+    <!-- Bootstrap 4.0-->
+    <script src="~/shared/admin/assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- ChartJS -->
+    <script src="~/shared/admin/assets/vendor_components/chart-js/chart.js"></script>
+
+    <!-- Sparkline -->
+    <script src="~/shared/admin/assets/vendor_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+
+    <!-- daterangepicker -->
+    <script src="~/shared/admin/assets/vendor_components/moment/min/moment.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- datepicker -->
+    <script src="~/shared/admin/assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="~/shared/admin/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
+
+    <!-- Slimscroll -->
+    <script src="~/shared/admin/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- FastClick -->
+    <script src="~/shared/admin/assets/vendor_components/fastclick/lib/fastclick.js"></script>
+
+    <!-- peity -->
+    <script src="~/shared/admin/assets/vendor_components/jquery.peity/jquery.peity.js"></script>
+
+    <!-- Aries_admin App -->
+    <script src="~/shared/admin/ariesadmin/js/template.js"></script>
+
+    <!-- Aries_admin dashboard demo (This is only for demo purposes) -->
+    <script src="~/shared/admin/ariesadmin/js/pages/dashboard.js"></script>
+
+    <!-- Aries_admin for demo purposes -->
+    <script src="~/shared/admin/ariesadmin/js/demo.js"></script>
+</body>
+</html>
