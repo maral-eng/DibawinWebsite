@@ -24,9 +24,108 @@ namespace DibawinWebsite.Areas.Admin.Controllers
     //[Authorize(Roles = "Admin,SuperVisor")]
     public class AccountController : Controller
     {
-         public IActionResult Index()
+        #region Inject
+        private readonly IHostingEnvironment _hostingEnvironment;
+        readonly string contentRootPath;
+        UserManager<ApplicationUser> _userManager;
+        SignInManager<ApplicationUser> _signInManager;
+        RoleManager<IdentityRole> _roleManager;
+        DbRepository<MyDBContext, UserModified, int> _dbUserModified;
+        DbRepository<MyDBContext, UserImage, int> _dbUserImage;
+        public AccountController
+            (
+                IHostingEnvironment hostingEnvironment,
+                UserManager<ApplicationUser> userManager,
+                SignInManager<ApplicationUser> signInManager,
+                RoleManager<IdentityRole> roleManager,
+                DbRepository<MyDBContext, UserModified, int> dbUserModified,
+                DbRepository<MyDBContext, UserImage, int> dbUserImage
+            )
+        {
+            _hostingEnvironment = hostingEnvironment;
+            contentRootPath = _hostingEnvironment.ContentRootPath;//returns the root path of the website
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _dbUserModified = dbUserModified;
+            _dbUserImage = dbUserImage;
+
+        }
+        #endregion
+        #region Index
+        public IActionResult Index()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("SignIn", "Account");
+        }
+        #endregion
+        #region InitializeUser
+        //Initialize User and Roles--Start
+        [AllowAnonymous]
+        public async Task<IActionResult> Initialize()
+        {
+            string MainAdmin = "admin@mail.com";
+            string nvm;
+            //making identity roles
+            string[] RolesName = { "Admin", "SuperVisor", "Customer" };
+            foreach (var item in RolesName)
+            {
+                if (await _roleManager.RoleExistsAsync(item) == false)
+                {
+                    IdentityRole role = new IdentityRole(item);
+                    await _roleManager.CreateAsync(role);
+                }
+            }
+            //This command controls whether or not Admin user exists. If not, it will make it.
+            var AdminExist = await _userManager.FindByNameAsync(MainAdmin);
+            if (AdminExist == null)
+            {
+                ApplicationUser admin = new ApplicationUser()
+                {
+                    UserName = MainAdmin,
+                    Email = MainAdmin,
+                    FirstName = "Saeed",
+                    LastName = "Panahi",
+                    Gendre = 1,
+                    DateOfBirth = new DateTime(1990, 1, 20),
+                    SpecialUser = true,
+                    Rank = 1000,
+                    NationalCode = "111111111",
+                    PhoneNumber = "09386723416",
+                    PhoneNumberConfirmed = true,
+                    EmailConfirmed = true
+
+                };
+                var status = await _userManager.CreateAsync(admin, "Qwerty@01234");
+                if (status.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
+            nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Success_Insert, contentRootPath);
+            return RedirectToAction("SignIn", new { notification = nvm });
+        }
+        //Initialize User and Roles--End
+        #endregion
+        #region SignIn
+        [AllowAnonymous]
+        public IActionResult SignIn(string notification)
+        {
+            if (notification != null)
+            {
+                ViewData["nvm"] = NotificationHandler.DeserializeMessage(notification);
+                return View();
+            }
+            return View();
+        }
+        public async Task<IActionResult> SignInConfirm(LoginViewModel model)
         {
             return View();
         }
+        #endregion
+
     }
 }

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var nvm = ViewData["nvm"] as NotificationViewModel;
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -32,6 +35,9 @@
 
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="~/shared/admin/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css">
+
+    <!-- toast CSS -->
+    <link href="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.css" rel="stylesheet">
 
 
     <link href="~/shared/admin/ariesadmin/css/customize.css" rel="stylesheet" />
@@ -70,7 +76,7 @@
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-	  $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     </script>
 
     <!-- popper -->
@@ -112,5 +118,28 @@
 
     <!-- Aries_admin for demo purposes -->
     <script src="~/shared/admin/ariesadmin/js/demo.js"></script>
+
+    <!-- toast -->
+    <script src="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.js"></script>
+    <script src="~/shared/admin/ariesadmin/js/pages/toastr.js"></script>
+
+    @if (nvm != null)
+    {
+        
+        <script>
+            $.toast({
+                text: "Let's test some HTML stuff... <a href='#'>github</a>",
+                showHideTransition: 'slide',  // It can be plain, fade or slide
+                bgColor: 'blue',              // Background color for toast
+                textColor: '#eee',            // text color
+                allowToastClose: false,       // Show the close button or not
+                hideAfter: 5000,              // `false` to make it sticky or time in miliseconds to hide after
+                stack: 5,                     // `fakse` to show one stack at a time count showing the number of toasts that can be shown at once
+                textAlign: 'left',            // Alignment of text i.e. left, right, center
+                position: 'bottom-left'       // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+            })
+            
+        </script>
+    }
 </body>
 </html>
