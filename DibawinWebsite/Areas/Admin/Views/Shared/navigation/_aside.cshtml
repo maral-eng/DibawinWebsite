@@ -5,21 +5,25 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
+            @if (User.Identity.IsAuthenticated)
+            {
             <li class="user-profile treeview">
                 <a href="index.html">
-                    <img src="~/shared/admin/images/user5-128x128.jpg" alt="user">
-                    <span>Juliya Brus</span>
+                    <img src="~/shared/admin/images/user-profile.png" alt="user">
+                    <span>@User.Identity.Name</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-left"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="javascript:void()">پروفایل کاربری </a></li>
+                    <li><a href="#">پروفایل کاربری </a></li>
                     <li><a href="javascript:void()">صندوق پیام</a></li>
-                    <li><a href="javascript:void()">تنظیمات</a></li>
-                    <li><a href="javascript:void()">خروج</a></li>
+                    <li><a asp-area="Admin" asp-controller="Account" asp-action="SignOut">خروج</a></li>
                 </ul>
             </li>
+            }
+            
+            
             <li class="nav-devider"></li>
             <li class="header nav-small-cap">تنظیمات پایه</li>
             <li class="active">
@@ -33,19 +37,15 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-th"></i>
-                    <span>اپلیکیشن</span>
+                    <span>کاربران</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-left"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/app/app-chat.html">چت</a></li>
-                    <li><a href="pages/app/app-contact.html">کاربران</a></li>
-                    <li><a href="pages/app/app-ticket.html">تیکت</a></li>
-                    <li><a href="pages/app/calendar.html">تقویم</a></li>
-                    <li><a href="pages/app/profile.html">پروفایل</a></li>
-                    <li><a href="pages/app/userlist-grid.html">جدول</a></li>
-                    <li><a href="pages/app/userlist.html">لیست کاربران</a></li>
+                    <li><a asp-area="Admin" asp-controller="Account" asp-action="UserList">لیست کاربران</a></li>
+                    <li><a asp-area="Admin" asp-controller="Account" asp-action="UserList">ثبت کاربر جدید</a></li>
+
                 </ul>
             </li>
             <li class="treeview">

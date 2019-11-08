@@ -21,7 +21,7 @@ using DibawinWebsite.Repository;
 namespace DibawinWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin,SuperVisor")]
+    [Authorize(Roles = "Admin,SuperVisor")]
     public class AccountController : Controller
     {
         #region Inject
@@ -96,7 +96,8 @@ namespace DibawinWebsite.Areas.Admin.Controllers
                     NationalCode = "111111111",
                     PhoneNumber = "09386723416",
                     PhoneNumberConfirmed = true,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Status = true,
 
                 };
                 var status = await _userManager.CreateAsync(admin, "Qwerty@01234");
@@ -121,11 +122,67 @@ namespace DibawinWebsite.Areas.Admin.Controllers
             }
             return View();
         }
+        [AllowAnonymous]
         public async Task<IActionResult> SignInConfirm(LoginViewModel model)
         {
-            return View();
+            string nvm;
+            if (!ModelState.IsValid)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Wrong_Values, contentRootPath);
+                return RedirectToAction("SignIn", new { notification = nvm });
+            }
+            //Model is Valid
+            var CurrentUser = await _userManager.FindByNameAsync(model.UserName);
+            if (CurrentUser == null)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Failed_Login, contentRootPath);
+                return RedirectToAction("Signin", new { notification = nvm });
+            }
+            //User Exists
+            var CurrentUserStatus = CurrentUser.Status;
+            var CurrentUserRole = await _userManager.IsInRoleAsync(CurrentUser, "Admin");
+            if (!CurrentUserStatus)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Failed_Login, contentRootPath);
+                return RedirectToAction("SignIn", new { notification = nvm });
+            }
+            if (!CurrentUserRole)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Failed_Login, contentRootPath);
+                return RedirectToAction("SignIn", new { notification = nvm });
+            }
+            var status = await _signInManager.PasswordSignInAsync(CurrentUser, model.Password, model.RememberMe, false);
+            if (status.Succeeded)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Success_Login, contentRootPath);
+                return RedirectToAction("Index", "Home", new { notification = nvm }); //successful signin
+            }
+            nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Failed_Login, contentRootPath);
+            return RedirectToAction("Signin", new { notification = nvm });
         }
         #endregion
-
+        #region Signout
+        public async Task<IActionResult> Signout()
+        {
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Signin");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            } 
+        }
+        #endregion
+        public async Task<IActionResult> UserList(string notification)
+        {
+            var dbViewModel =  _userManager.Users.ToList();
+            if (notification != null)
+            {
+                ViewData["nvm"] = NotificationHandler.DeserializeMessage(notification);
+            }
+            return View(dbViewModel);
+        }
     }
 }

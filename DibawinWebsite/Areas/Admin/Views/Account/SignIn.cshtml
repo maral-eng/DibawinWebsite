@@ -4,7 +4,7 @@
     Layout = null;
     var nvm = ViewData["nvm"] as NotificationViewModel;
 }
-
+@model LoginViewModel
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
 
@@ -22,9 +22,10 @@
 
     <!-- toast CSS -->
     <link href="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.css" rel="stylesheet">
-
+    <!-- custom CSS -->
+    <link href="~/shared/admin_tools/custom/custom.css" rel="stylesheet" />
     <title>دیباوین | ورود به مدیریت </title>
-   
+
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -36,28 +37,30 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">اطلاعات ورود به پنل مدیریت را وارد کنید</p>
-            <button class="tst1 btn btn-info">Info Message</button>
-            <form asp-area="Admin" asp-controller="Account" asp-action="signinconfirm"
+
+            <form asp-area="Admin" asp-controller="Account" asp-action="SignInConfirm"
                   method="post" class="form-element">
                 <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="ایمیل">
+                    <input asp-for="UserName" type="text" class="form-control" placeholder="ایمیل">
                     <span class="ion ion-email form-control-feedback"></span>
+                    <span asp-validation-for="UserName"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="پسورد">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="پسورد">
                     <span class="ion ion-locked form-control-feedback"></span>
+                    <span asp-validation-for="Password"></span>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="checkbox">
-                            <input type="checkbox" id="basic_checkbox_1">
+                            <input asp-for="RememberMe" type="checkbox" id="basic_checkbox_1">
                             <label for="basic_checkbox_1">مرا به خاطر بسپار</label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-6">
                         <div class="fog-pwd">
-                            <a href="javascript:void(0)"><i class="ion ion-locked"></i> بازیابی پسورد</a><br>
+                            <a href="#" id="btn_recover_pass"><i class="ion ion-locked"></i> بازیابی پسورد</a><br>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -68,15 +71,6 @@
                 </div>
             </form>
 
-            @*<div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-social-icon btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="btn btn-social-icon btn-circle btn-google"><i class="fa fa-google-plus"></i></a>
-        </div>*@
-            <!-- /.social-auth-links -->
-            @*<div class="margin-top-30 text-center">
-            <p>ساخت اکانت جدید <a href="register.html" class="text-info m-l-5">ثبت نام</a></p>
-        </div>*@
 
         </div>
         <!-- /.login-box-body -->
@@ -95,12 +89,14 @@
     <script src="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.js"></script>
     <script src="~/shared/admin/ariesadmin/js/pages/toastr.js"></script>
 
+    <!-- validation -->
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
     @if (nvm != null)
     {
-        @nvm
         <script>
-
-          
             $.toast({
                 heading: '@nvm.Heading',
                 text: '@nvm.Text',
@@ -110,9 +106,23 @@
                 hideAfter: 3000,
                 stack: 6
             });
-           
+            
+          
         </script>
     }
+    <script>
+        $(btn_recover_pass).click(function () {
+            $.toast({
+                heading: 'بازیابی پسورد',
+                text: 'با پشتیبانی تماس بگیرید',
+                position: 'top-left',
+                loaderBg: '#ff6849',
+                icon: 'info',
+                hideAfter: 5000,
+                stack: 6
+            });
+        })
+    </script>
 </body>
 
 </html>

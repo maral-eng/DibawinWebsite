@@ -118,6 +118,24 @@
 
     <!-- Aries_admin for demo purposes -->
     <script src="~/shared/admin/ariesadmin/js/demo.js"></script>
+    <!-- DataTables -->
+    <script src="~/shared/admin/assets/vendor_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- This is data table -->
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
+
+    <!-- start - This is for export functionality only -->
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.flash.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/ex-js/jszip.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/ex-js/pdfmake.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/ex-js/vfs_fonts.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+    <!-- Aries_admin for Data Table -->
+    <script src="~/shared/admin/ariesadmin/js/pages/data-table.js"></script>
 
     <!-- toast -->
     <script src="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.js"></script>
@@ -125,20 +143,18 @@
 
     @if (nvm != null)
     {
-        
         <script>
             $.toast({
-                text: "Let's test some HTML stuff... <a href='#'>github</a>",
-                showHideTransition: 'slide',  // It can be plain, fade or slide
-                bgColor: 'blue',              // Background color for toast
-                textColor: '#eee',            // text color
-                allowToastClose: false,       // Show the close button or not
-                hideAfter: 5000,              // `false` to make it sticky or time in miliseconds to hide after
-                stack: 5,                     // `fakse` to show one stack at a time count showing the number of toasts that can be shown at once
-                textAlign: 'left',            // Alignment of text i.e. left, right, center
-                position: 'bottom-left'       // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
-            })
-            
+                heading: '@nvm.Heading',
+                text: '@nvm.Text',
+                position: 'top-left',
+                loaderBg: '#ff6849',
+                icon: 'success',
+                hideAfter: 3000,
+                stack: 6
+            });
+
+
         </script>
     }
 </body>
