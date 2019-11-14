@@ -1,0 +1,37 @@
+﻿@* ========================= File Upload UI ========================= *@
+
+<form asp-area="Admin" asp-controller="Services" asp-action="UploadFiles" asp-antiforgery="false"
+      class="dropzone" id="myDropzone" enctype="multipart/form-data">
+    <div class="fallback">
+        <input name="file" type="file" multiple />
+        <input type="submit" value="Upload" />
+    </div>
+</form>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/shared/shared_contents/dropzone-master/dist/dropzone.js"></script>
+<script src="~/shared/shared_contents/dropzone-master/dist/dropzone-amd-module.js"></script>
+<script>
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone("#myDropzone", {
+        maxFilesize: 2, //MB
+        addRemoveLinks: true
+        //maxFiles: 2,
+    });
+    myDropzone.on("removedfile", function (file) {
+        console.log(file)
+        var objj = JSON.stringify(file);
+        var result = jQuery.parseJSON(objj);
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Services/RemoveFiles",
+            data: { file: objj },
+            processData: false,
+            contentType: false,
+            success: function (value) {
+                
+            }
+        });
+        /* Maybe display some more file information on your page */
+    });
+
+</script>

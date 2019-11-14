@@ -37,4 +37,10 @@
   </ItemGroup>
 
 
+   <ItemGroup>
+     <None Include="wwwroot\shared\shared_contents\form-master\.circleci\config.yml" />
+     <None Include="wwwroot\shared\shared_contents\form-master\.github\issue_template.md" />
+   </ItemGroup>
+
+
 </Project>
