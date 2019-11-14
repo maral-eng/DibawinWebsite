@@ -175,6 +175,7 @@ namespace DibawinWebsite.Areas.Admin.Controllers
             } 
         }
         #endregion
+        #region UserList
         public async Task<IActionResult> UserList(string notification)
         {
             var dbViewModel =  _userManager.Users.ToList();
@@ -184,5 +185,17 @@ namespace DibawinWebsite.Areas.Admin.Controllers
             }
             return View(dbViewModel);
         }
+        #endregion
+        #region Register
+        public async Task<IActionResult> Register(string notification)
+        {
+            if (notification != null)
+            {
+                ViewData["nvm"] = NotificationHandler.DeserializeMessage(notification);
+            }
+            return View();
+        }
+        #endregion
+
     }
 }
