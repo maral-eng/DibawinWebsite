@@ -113,5 +113,22 @@ namespace DibawinWebsite.Areas.Identity.Data
         [InverseProperty("User")]
         public virtual ICollection<UserReported> UserReportedUser { get; set; }
         public virtual ICollection<VerificationCode> VerificationCode { get; set; }
+        public virtual ICollection<ClientAddress> ClientAddress { get; set; }
+
+        [InverseProperty("DefinedByUser")]
+        public virtual ICollection<Clients> DefinedByUserClient { get; set; }
+
+        [InverseProperty("User")]
+        public virtual ICollection<Clients> Client { get; set; }
+
+        public virtual ICollection<ProjectsImages> ProjectsImages { get; set; }
+
+
+        [InverseProperty("ProjectManager")]
+        public virtual ICollection<Projects> UserProjectManager { get; set; }
+
+        [InverseProperty("DefinedByUser")]
+        public virtual ICollection<Projects> ProjectDefinedByUser { get; set; }
+
     }
 }

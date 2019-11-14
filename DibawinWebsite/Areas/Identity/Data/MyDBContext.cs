@@ -96,10 +96,49 @@ namespace DibawinWebsite.Areas.Identity.Data
         public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<Tokens> Tokens { get; set; }
 
-        
+        //==========================================================================================
+        public virtual DbSet<Projects> Projects { get; set; }
+        public virtual DbSet<ProjectsImages> ProjectsImages { get; set; }
+        public virtual DbSet<ProjectsFeatures> ProjectsFeatures { get; set; }
+        public virtual DbSet<Features> Features { get; set; }
+        public virtual DbSet<Clients> Clients { get; set; }
+        public virtual DbSet<ClientAddress> ClientAddress { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+
+            builder.Entity<Projects>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.Deleted).HasDefaultValue(false);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
+            builder.Entity<ProjectsImages>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+                entity.Property(p => p.GrayScale).HasDefaultValue(false);
+                entity.Property(p => p.Compressed).HasDefaultValue(false);
+                entity.Property(p => p.IsMainImage).HasDefaultValue(false);
+            });
+            builder.Entity<Features>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.Deleted).HasDefaultValue(false);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
+            builder.Entity<Clients>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.Deleted).HasDefaultValue(false);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
+            builder.Entity<ClientAddress>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.Deleted).HasDefaultValue(false);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
             base.OnModelCreating(builder);
             builder.Entity<ApplicationUser>(entity =>
             {

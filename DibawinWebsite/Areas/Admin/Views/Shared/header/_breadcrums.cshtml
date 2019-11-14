@@ -1,11 +1,21 @@
-﻿<!-- Content Header (Page header) -->
+﻿@using DibawinWebsite.ClassLibraries.MenuGenrator
+@using DibawinWebsite.ClassLibraries.MenuGenrator.Models
+
+<!-- Content Header (Page header) -->
+@{
+    var areaName = ViewContext.RouteData.Values["area"].ToString();
+    var contollerName = ViewContext.RouteData.Values["controller"].ToString();
+    var actionName = ViewContext.RouteData.Values["action"].ToString();
+
+    var controllerTitle = MenuGenerator.GetTitleOfController(contollerName);
+}
 <section class="content-header">
     <h1>
-        داشبورد
-        <small>پنل مدیریت</small>
+        @(controllerTitle ?? "داشبورد")
+        <small>@actionName</small>
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> صفحه نخست</a></li>
-        <li class="breadcrumb-item active">داشبورد</li>
+        <li class="breadcrumb-item"><a asp-area="@areaName" asp-controller="@contollerName" asp-action="@actionName"><i class="fa fa-dashboard"></i> @contollerName</a></li>
+        <li class="breadcrumb-item active">@actionName</li>
     </ol>
 </section>

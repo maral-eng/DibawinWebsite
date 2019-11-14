@@ -61,5 +61,6 @@ namespace DibawinWebsite.Models
         public virtual ICollection<SearchFiltersOnCategory> SearchFiltersOnCategory { get; set; }
         public virtual ICollection<TopSlider> TopSlider { get; set; }
         public virtual ICollection<UserCategoryVisit> UserCategoryVisit { get; set; }
+        public virtual ICollection<Projects> Projects { get; set; }
     }
 }

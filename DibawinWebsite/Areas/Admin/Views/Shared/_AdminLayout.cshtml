@@ -21,14 +21,18 @@
     <!-- Bootstrap 4.0-->
     <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap/dist/css/bootstrap-extend.css">
 
-    <!-- theme style -->
-    <link rel="stylesheet" href="~/shared/admin/ariesadmin/css/master_style.css">
+    <!-- file uploadr -->
+    <link href="~/shared/shared_contents/dropzone-master/dist/basic.css" rel="stylesheet" />
+    <link href="~/shared/shared_contents/dropzone-master/dist/dropzone.css" rel="stylesheet" />
 
-    <!-- Aries_admin skins. choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="~/shared/admin/ariesadmin/css/skins/_all-skins.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_plugins/iCheck/all.css">
 
     <!-- date picker -->
     <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+
+    <!-- persian date picker -->
+    <link href="~/shared/shared_contents/persian_datepicker/css/persianDatepicker-default.css" rel="stylesheet" />
 
     <!-- daterange picker -->
     <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -39,7 +43,18 @@
     <!-- toast CSS -->
     <link href="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.css" rel="stylesheet">
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/shared/admin/assets/vendor_components/select2/dist/css/select2.css">
 
+    <!-- theme style -->
+    <link rel="stylesheet" href="~/shared/admin/ariesadmin/css/master_style.css">
+
+    <!-- Aries_admin skins. choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/shared/admin/ariesadmin/css/skins/_all-skins.css">
+    <!-- fonr awesome -->
+    @*<link href="~/shared/shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" />*@
+
+    @*<script src="https://kit.fontawesome.com/51385ea701.js" crossorigin="anonymous"></script>*@
     <link href="~/shared/admin/ariesadmin/css/customize.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,6 +85,8 @@
 
     <!-- jQuery 3 -->
     <script src="~/shared/admin/assets/vendor_components/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
     <!-- jQuery UI 1.11.4 -->
     <script src="~/shared/admin/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
@@ -97,6 +114,9 @@
 
     <!-- datepicker -->
     <script src="~/shared/admin/assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+
+    <!-- persian date picker -->
+    <script src="~/shared/shared_contents/persian_datepicker/js/persianDatepicker.min.js"></script>
 
     <!-- Bootstrap WYSIHTML5 -->
     <script src="~/shared/admin/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
@@ -141,20 +161,36 @@
     <script src="~/shared/admin/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.js"></script>
     <script src="~/shared/admin/ariesadmin/js/pages/toastr.js"></script>
 
+    <!-- InputMask -->
+    <script src="~/shared/admin/assets/vendor_plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="~/shared/admin/assets/vendor_plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+    <!-- file uploader -->
+    <script src="~/shared/shared_contents/dropzone-master/dist/dropzone.js"></script>
+    <script src="~/shared/shared_contents/dropzone-master/dist/dropzone-amd-module.js"></script>
+
+    <!-- iCheck 1.0.1 -->
+    <script src="~/shared/admin/assets/vendor_plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="~/shared/admin/assets/vendor_components/select2/dist/js/select2.full.js"></script>
+
+    <!-- Aries_admin for advanced form element -->
+    <script src="~/shared/admin/ariesadmin/js/pages/advanced-form-element.js"></script>
+
     @if (nvm != null)
     {
         <script>
-            $.toast({
-                heading: '@nvm.Heading',
-                text: '@nvm.Text',
-                position: 'top-left',
-                loaderBg: '#ff6849',
-                icon: 'success',
-                hideAfter: 3000,
-                stack: 6
-            });
-
-
+                $.toast({
+                    heading: '@nvm.Heading',
+                    text: '@nvm.Text',
+                    position: '@nvm.Position',
+                    loaderBg: '#ff6849',
+                    icon: '@nvm.Icon',
+                    hideAfter: @nvm.HideAfter,
+                    stack: 6
+                });
         </script>
     }
 </body>

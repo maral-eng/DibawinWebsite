@@ -33,5 +33,7 @@ namespace DibawinWebsite.Models
         public virtual ICollection<Address> Address { get; set; }
         public virtual ICollection<City> City { get; set; }
         public virtual ICollection<ManufacturerAddress> ManufacturerAddress { get; set; }
+
+        public virtual ICollection<ClientAddress> ClientAddress { get; set; }
     }
 }

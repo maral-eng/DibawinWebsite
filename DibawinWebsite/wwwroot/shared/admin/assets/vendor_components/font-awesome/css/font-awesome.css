@@ -7,11 +7,11 @@
 @font-face {
   font-family: 'FontAwesome';
   src: url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.eot');
-  src: url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.eot') format('embedded-opentype'), 
+  src: url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.eot?#iefix') format('embedded-opentype'), 
        url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.woff2') format('woff2'), 
        url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.woff') format('woff'), 
        url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.ttf') format('truetype'), 
-       url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.svg') format('svg');
+       url('../../../../../shared_contents/font/fontawesome-pro-5.0.10-ulabs/fontawesome-pro-5.0.10/web-fonts-with-css/webfonts/fa-regular-400.svg#fontawesome') format('svg');
   font-weight: normal;
   font-style: normal;
 }

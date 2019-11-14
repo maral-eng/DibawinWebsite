@@ -42,5 +42,6 @@ namespace DibawinWebsite.Models
 
         public virtual ICollection<Brand> Brand { get; set; }
         public virtual ICollection<Province> Province { get; set; }
+        public virtual ICollection<ClientAddress> ClientAddress { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace DibawinWebsite.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -742,6 +742,118 @@ namespace DibawinWebsite.Migrations
                     b.ToTable("City");
                 });
 
+            modelBuilder.Entity("DibawinWebsite.Models.ClientAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<int?>("CityId");
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("Coordinates");
+
+                    b.Property<int?>("CountryId");
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Fax");
+
+                    b.Property<string>("Mobile");
+
+                    b.Property<string>("ModifiedByUsers");
+
+                    b.Property<string>("PostalCode");
+
+                    b.Property<int?>("ProvinceId");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("SocialMediaLinks");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Telephone");
+
+                    b.Property<string>("Website");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("ClientAddress");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Clients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientCode");
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsRealPersonality");
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<byte[]>("Logo");
+
+                    b.Property<byte[]>("LogoTiny");
+
+                    b.Property<string>("ManagerFullName");
+
+                    b.Property<string>("ModifiedByUsers");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("DibawinWebsite.Models.Color", b =>
                 {
                     b.Property<int>("Id")
@@ -1070,6 +1182,39 @@ namespace DibawinWebsite.Migrations
                             Status = true,
                             Symbol = "¥"
                         });
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Features", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<byte[]>("Image");
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Features");
                 });
 
             modelBuilder.Entity("DibawinWebsite.Models.Field", b =>
@@ -2194,6 +2339,145 @@ namespace DibawinWebsite.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("ProductTag");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Projects", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryId");
+
+                    b.Property<int?>("ClientId");
+
+                    b.Property<string>("Collaborators");
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime?>("Ends");
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<string>("ModifiedByUsers");
+
+                    b.Property<string>("ProjectManagerFullName");
+
+                    b.Property<string>("ProjectManagerId");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<DateTime?>("Starts");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.HasIndex("ProjectManagerId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.ProjectsFeatures", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FeatureId");
+
+                    b.Property<int>("ProjectId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeatureId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectsFeatures");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.ProjectsImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("BigImage");
+
+                    b.Property<string>("BigImagePath");
+
+                    b.Property<bool>("Compressed")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<string>("DimensionSize");
+
+                    b.Property<bool>("GrayScale")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<byte[]>("Image");
+
+                    b.Property<string>("ImageFormat");
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<byte[]>("ImageThumbnail");
+
+                    b.Property<string>("ImageThumbnailPath");
+
+                    b.Property<byte[]>("ImageTinyThumbnail");
+
+                    b.Property<string>("ImageTinyThumbnailPath");
+
+                    b.Property<bool>("IsMainImage")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<int>("ProjectId");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("VolumeSize");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectsImages");
                 });
 
             modelBuilder.Entity("DibawinWebsite.Models.Province", b =>
@@ -3530,6 +3814,41 @@ namespace DibawinWebsite.Migrations
                         .HasForeignKey("ProvinceId");
                 });
 
+            modelBuilder.Entity("DibawinWebsite.Models.ClientAddress", b =>
+                {
+                    b.HasOne("DibawinWebsite.Models.City", "City")
+                        .WithMany("ClientAddress")
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("DibawinWebsite.Models.Clients", "Client")
+                        .WithMany("ClientAddress")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DibawinWebsite.Models.Country", "Country")
+                        .WithMany("ClientAddress")
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "DefinedByUser")
+                        .WithMany("ClientAddress")
+                        .HasForeignKey("DefinedByUserId");
+
+                    b.HasOne("DibawinWebsite.Models.Province", "Province")
+                        .WithMany("ClientAddress")
+                        .HasForeignKey("ProvinceId");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Clients", b =>
+                {
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "DefinedByUser")
+                        .WithMany("DefinedByUserClient")
+                        .HasForeignKey("DefinedByUserId");
+
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany("Client")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("DibawinWebsite.Models.ContactUs", b =>
                 {
                     b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "ApprovedByUser")
@@ -3921,6 +4240,50 @@ namespace DibawinWebsite.Migrations
                     b.HasOne("DibawinWebsite.Models.Tag", "Tag")
                         .WithMany("ProductTag")
                         .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Projects", b =>
+                {
+                    b.HasOne("DibawinWebsite.Models.Category", "Category")
+                        .WithMany("Projects")
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("DibawinWebsite.Models.Clients", "Client")
+                        .WithMany("Projects")
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "DefinedByUser")
+                        .WithMany("ProjectDefinedByUser")
+                        .HasForeignKey("DefinedByUserId");
+
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "ProjectManager")
+                        .WithMany("UserProjectManager")
+                        .HasForeignKey("ProjectManagerId");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.ProjectsFeatures", b =>
+                {
+                    b.HasOne("DibawinWebsite.Models.Features", "Features")
+                        .WithMany("ProjectsFeatures")
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DibawinWebsite.Models.Projects", "Projects")
+                        .WithMany("ProjectsFeatures")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.ProjectsImages", b =>
+                {
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany("ProjectsImages")
+                        .HasForeignKey("DefinedByUserId");
+
+                    b.HasOne("DibawinWebsite.Models.Projects", "Projects")
+                        .WithMany("ProjectsImages")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

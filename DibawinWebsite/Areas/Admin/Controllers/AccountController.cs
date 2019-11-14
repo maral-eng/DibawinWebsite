@@ -17,11 +17,13 @@ using DibawinWebsite.ClassLibraries;
 using DibawinWebsite.ClassLibraries.NotificationHandler;
 using DibawinWebsite.Models.ViewModels;
 using DibawinWebsite.Repository;
+using DibawinWebsite.ClassLibraries.MenuGenrator.Attributes;
 
 namespace DibawinWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin,SuperVisor")]
+    [MenuItem(Action = "Index",Title = "کاربران", CssIcon = "fa fa-user")]
     public class AccountController : Controller
     {
         #region Inject
@@ -175,6 +177,13 @@ namespace DibawinWebsite.Areas.Admin.Controllers
             } 
         }
         #endregion
+
+        #region Signup
+        [MenuItem(Title = "ثبت کاربر")]
+        public ViewResult Signup() => View();
+        #endregion
+
+        [MenuItem(Title ="لیست کاربران")]
         public async Task<IActionResult> UserList(string notification)
         {
             var dbViewModel =  _userManager.Users.ToList();

@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "ثبت پروژه";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<!-- Select2 -->
+<link href="~/shared/admin/assets/vendor_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+@model ProjectClientViewModel
+<section class="content">
+    <div class="row">
+        <!-- (right) -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مشخصات پروژه</h3>
+                </div>
+                <form asp-area="Admin" asp-controller="Project" asp-action="AddConfirm" method="post">
+                    <div class="box-body">
+                        <div class="form-group row">
+                            <label for="txt1" class="col-sm-4 col-form-label">عنوان پروژه <span class="red-color">*</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="Title" class="form-control" type="text" id="txt1">
+                                <span asp-validation-for="Title"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt2" class="col-sm-4 col-form-label">عنوان لاتین پروژه <span class="red-color">*</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="LatinTitle" class="form-control" type="text" id="txt2">
+                                <span asp-validation-for="LatinTitle"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt3" class="col-sm-4 col-form-label">مدیر پروژه <span class="red-color">*</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="ProjectManagerFullName " class="form-control" type="text" id="txt3">
+                                <span asp-validation-for="ProjectManagerFullName"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">مشارکت کنندگان در پروژه </label>
+                            <div class="col-sm-8">
+                                <select class="form-control select2" multiple="multiple" style="width: 100%;">
+                                    <option>اکبر</option>
+                                    <option>نقی</option>
+                                    <option>کامبیز</option>
+                                    <option>تقی</option>
+                                    <option>اقدس</option>
+                                </select>
+                                <span asp-validation-for="Collaborators"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pdpBig1" class="col-sm-4 col-form-label">تاریخ شروع </label>
+                            <div class="col-sm-8 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input asp-for="Starts" class="form-control farsi-num" type="text" id="pdpBig1">
+                                <span asp-validation-for="Starts"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pdpBig2" class="col-sm-4 col-form-label">تاریخ پایان </label>
+                            <div class="col-sm-8 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input asp-for="Ends" class="form-control farsi-num" type="text" id="pdpBig2">
+                                <span asp-validation-for="Ends"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-8">
+                                <div class="controls">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" required value="single" name="styled_single_checkbox" class="custom-control-input" checked> 
+                                        <span class="custom-control-indicator"></span> 
+                                        <span class="custom-control-description"> وضعیت </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-left">ثبت پروژه</button>
+                        <button type="reset" class="btn btn-low-priotity pull-left margin-l-10">تازه سازی فرم</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.col (right) -->
+        <!-- (left) -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered">
+                <div class="box-header with-border">
+                    <h3 class="box-title">تصاویر پروژه</h3>
+                </div>
+                <div class="box-body">
+                    @await Html.PartialAsync("~/Areas/Admin/Views/shared/partials/_UploadFiles.cshtml")
+                </div>
+
+            </div>
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<script src="~/shared/shared_contents/persian_datepicker/js/persianDatepicker.min.js"></script>
+<script>
+    $("#pdpBig1, #pdpBig2").persianDatepicker({
+        cellWidth: 38,
+        cellHeight: 20,
+        fontSize: 13
+    });
+</script>
