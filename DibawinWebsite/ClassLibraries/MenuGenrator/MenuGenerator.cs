@@ -157,30 +157,34 @@ namespace DibawinWebsite.ClassLibraries.MenuGenrator
                 var menuControllers = allControllers.Where(x => x.GetCustomAttribute<MenuItemAttribute>() != null ||
                                                             x.GetMethods().Any(m => m.GetCustomAttribute<MenuItemAttribute>() != null))
                                                             .ToList();
-                
-                
+
+
                 var currentController = menuControllers.Where(x => x.Name == $"{controllerName}Controller").FirstOrDefault();
                 var controllerAttr = currentController.GetCustomAttribute<MenuItemAttribute>();
                 controllerTitle = controllerAttr.Title;
                 return controllerTitle;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return controllerTitle;
             }
-            
+
         }
         public static string GetTitleOfAction(string actionName)
         {
             string actionTitle = null;
             var currentAssembly = Assembly.GetAssembly(typeof(MenuGenerator));
-            var allControllers = currentAssembly.GetTypes().Where(x => x.IsSubclassOf(typeof(Controller))).ToList();
-            var allActions = currentAssembly.GetTypes().Where(x => x.IsSubclassOf(typeof(Action))).ToList();
-            var menuControllers = allControllers.Where(x => x.GetCustomAttribute<MenuItemAttribute>() != null ||
-                                                        x.GetMethods().Any(m => m.GetCustomAttribute<MenuItemAttribute>() != null))
-                                                        .ToList();
-
-
+            var allActions = currentAssembly.GetTypes().Where(type => typeof(Controller).IsAssignableFrom(type)).
+                SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public)).ToList();
+            var menuActions = allActions.Where(x => x.GetCustomAttribute<MenuItemAttribute>() != null).ToList();
+            var currentAction = menuActions.Where(x => x.Name == $"{actionName}").FirstOrDefault();
+            if (currentAction == null)
+            {
+                return actionName;
+            }
+            var actionAttr = currentAction.GetCustomAttribute<MenuItemAttribute>();
+            actionTitle = actionAttr.Title;
+            // string  _actionTitle= actionTitle ?? actionName;
             return actionTitle;
         }
         private static bool UserHasAccess(AuthorizedRoleAttribute authorizedRoleAttribute)

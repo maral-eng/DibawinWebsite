@@ -1,8 +1,10 @@
 ﻿
 @{
-    ViewData["Title"] = "ثبت کاربر جدید";
+    ViewData["Title"] = "ویرایش کاربر ";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     var roles = ViewData["Roles"] as List<IdentityRole>;
+    var editUser = ViewData["EditUser"] as ApplicationUser;
+    var UserRole = (string)ViewData["UserRole"];
 }
 
 <!-- Select2 -->
@@ -16,49 +18,37 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">مشخصات کاربر</h3>
                 </div>
-                <form asp-area="Admin" asp-controller="Account" asp-action="SignupConfirm" method="post">
+                <form asp-area="Admin" asp-controller="Account" asp-action="EditUserConfirm" method="post">
                     <div class="box-body">
                         <div class="form-group row">
                             <label for="txt3" class="col-sm-4 col-form-label">ایمیل  <span class="red-color">*</span></label>
                             <div class="col-sm-8">
-                                <input asp-for="UserName " class="form-control" type="text" id="txt3">
+                                <input asp-for="UserName" class="form-control" type="text" id="txt3" readonly="readonly" value="@editUser.UserName">
                                 <span asp-validation-for="UserName"></span>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="txt3" class="col-sm-4 col-form-label">پسورد  <span class="red-color">*</span></label>
-                            <div class="col-sm-8">
-                                <input asp-for="Password " class="form-control" type="password" id="txt3">
-                                <span asp-validation-for="Password"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="txt3" class="col-sm-4 col-form-label">تکرار پسورد <span class="red-color">*</span></label>
-                            <div class="col-sm-8">
-                                <input asp-for="ConfirmPassword " class="form-control" type="password" id="txt3">
-                                <span asp-validation-for="ConfirmPassword"></span>
-                            </div>
-                        </div>
+                        <input asp-for="Password " class="form-control" value="1" hidden>
+                        <input asp-for="ConfirmPassword " class="form-control" value="1" hidden>
                         <hr />
 
                         <div class="form-group row">
                             <label for="txt1" class="col-sm-4 col-form-label">نام </label>
                             <div class="col-sm-8">
-                                <input asp-for="Firstname" class="form-control" type="text" id="txt1">
+                                <input asp-for="Firstname" class="form-control" type="text" id="txt1" value="@editUser.FirstName">
                                 <span asp-validation-for="Firstname"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="txt2" class="col-sm-4 col-form-label">نام خانوادگی</label>
                             <div class="col-sm-8">
-                                <input asp-for="Lastname" class="form-control" type="text" id="txt2">
+                                <input asp-for="Lastname" class="form-control" type="text" id="txt2" value="@editUser.LastName">
                                 <span asp-validation-for="Lastname"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="txt2" class="col-sm-4 col-form-label">شماره تلفن</label>
                             <div class="col-sm-8">
-                                <input asp-for="Phonenumber" class="form-control" type="text" id="txt2">
+                                <input asp-for="Phonenumber" class="form-control" type="text" id="txt2" value="@editUser.PhoneNumber">
                                 <span asp-validation-for="Phonenumber"></span>
                             </div>
                         </div>
@@ -68,7 +58,8 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input asp-for="Dateofbirth" class="form-control farsi-num" type="text" id="pdpBig1">
+                                <input asp-for="Dateofbirth" class="form-control farsi-num" type="text" id="pdpBig1"
+                                       value="@CustomizeCalendar.GregorianToPersianStd(editUser.DateOfBirth.Value)">
                                 <span asp-validation-for="Dateofbirth"></span>
                             </div>
                         </div>
@@ -76,11 +67,11 @@
                             <label for="txt2" class="col-sm-4 col-form-label"> جنسیت</label>
                             <div class="col-sm-8">
                                 <div class="radio">
-                                    <input asp-for="Gender" value="true" name="Gender" type="radio" id="Gender_1" checked="checked">
+                                    <input asp-for="Gender" value="true" name="Gender" type="radio" id="Gender_1" checked=@(editUser.Gendre==1 ? "checked":null)>
                                     <label for="Gender_1">مرد</label>
                                 </div>
                                 <div class="radio">
-                                    <input asp-for="Gender" value="false" name="Gender" type="radio" id="Gender_2">
+                                    <input asp-for="Gender" value="false" name="Gender" type="radio" id="Gender_2" checked=@(editUser.Gendre!=1 ? "checked":null)>
                                     <label for="Gender_2">زن</label>
                                 </div>
                             </div>
@@ -91,7 +82,7 @@
                             <div class="col-sm-8">
                                 <div class="controls">
                                     <div class="checkbox">
-                                        <input asp-for="PhoneConfirm" type="checkbox" id="ChkPhoneConfirm">
+                                        <input asp-for="PhoneConfirm" type="checkbox" id="ChkPhoneConfirm" checked=@(editUser.PhoneNumberConfirmed ? "checked":null)>
                                         <label for="ChkPhoneConfirm">تایید </label>
                                     </div>
                                 </div>
@@ -102,7 +93,7 @@
                             <div class="col-sm-8">
                                 <div class="controls">
                                     <div class="checkbox">
-                                        <input asp-for="EmailConfirm" type="checkbox" id="ChkEmailConfirm">
+                                        <input asp-for="EmailConfirm" type="checkbox" id="ChkEmailConfirm" checked=@(editUser.EmailConfirmed ? "checked":null)>
                                         <label for="ChkEmailConfirm">تایید </label>
                                     </div>
                                 </div>
@@ -116,7 +107,7 @@
                                     <select asp-for="RoleName" class="form-control">
                                         @foreach (var item in roles)
                                         {
-                                        <option value="@item.Name">@item.Name</option>
+                                            <option value="@item.Name" selected=@(UserRole==item.Name ? "selected":null)>@item.Name</option>
                                         }
                                     </select>
                                 </div>
@@ -126,11 +117,11 @@
                             <label for="txt2" class="col-sm-4 col-form-label"> وضعیت</label>
                             <div class="col-sm-8">
                                 <div class="radio">
-                                    <input asp-for="Status" value="true" name="Status" type="radio" id="Status_1" checked="checked">
+                                    <input asp-for="Status" value="true" name="Status" type="radio" id="Status_1" checked=@(editUser.Status ? "checked":null)>
                                     <label for="Status_1">فعال</label>
                                 </div>
                                 <div class="radio">
-                                    <input asp-for="Status" value="false" name="Status" type="radio" id="Status_2">
+                                    <input asp-for="Status" value="false" name="Status" type="radio" id="Status_2" checked=@(!editUser.Status ? "checked":null)>
                                     <label for="Status_2">غیر فعال</label>
                                 </div>
                             </div>
@@ -168,4 +159,6 @@
         fontSize: 13
     });
 </script>
+
+
 

@@ -66,6 +66,14 @@ namespace DibawinWebsite.ClassLibraries
             //var dt = DateTime.Parse(str_dt);
             return str_dt;
         }
+        static public string GregorianToPersianStd(DateTime gregorianDate)
+        {
+            string greDate = gregorianDate.ToString();
+            DateTime d = DateTime.Parse(greDate);
+            var str_dt = $"{pc.GetYear(d)}/{pc.GetMonth(d)}/{pc.GetDayOfMonth(d)}";
+            //var dt = DateTime.Parse(str_dt);
+            return str_dt;
+        }
 
 
     }
