@@ -236,12 +236,13 @@ namespace DibawinWebsite.Areas.Admin.Controllers
         [MenuItem(Title = "لیست کاربران")]
         public async Task<IActionResult> UserList(string notification)
         {
-            var dbViewModel = _userManager.Users.ToList();
+            var UsersList = _userManager.Users.ToList();
             if (notification != null)
             {
                 ViewData["nvm"] = NotificationHandler.DeserializeMessage(notification);
             }
-            return View(dbViewModel);
+            
+            return View(UsersList);
         }
         #endregion
         #region EditUser
@@ -300,6 +301,55 @@ namespace DibawinWebsite.Areas.Admin.Controllers
 
         }
         #endregion
-
+        #region UserPasswordChange
+        public async Task<IActionResult> UserPasswordChange(string username)
+        {
+            var editUser = await _userManager.FindByNameAsync(username);
+            ViewData["EditUser"] = editUser;
+            return View();
+        }
+        public async Task<IActionResult> UserPasswordChangeConfirm(string UserName,string Password)
+        {
+            string nvm;
+            var editUser = await _userManager.FindByNameAsync(UserName);
+            if (editUser ==null)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Record_Not_Exist, contentRootPath);
+                return RedirectToAction("UserList", new { notification = nvm });
+            }
+            if (Password!=null)
+            {
+                string token = await _userManager.GeneratePasswordResetTokenAsync(editUser);
+                var status = _userManager.ResetPasswordAsync(editUser, token, Password);
+                if (status.Result.Succeeded)
+                {
+                    nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Success_Update, contentRootPath);
+                    return RedirectToAction("UserList", new { notification = nvm });
+                }
+            }
+            nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Failed_Update, contentRootPath);
+            return RedirectToAction("UserList", new { notification = nvm });
+        }
+        #endregion
+        #region DeleteUser
+        public async Task<IActionResult> DeleteUser(string UserName)
+        {
+            string nvm;
+            var editUser = await _userManager.FindByNameAsync(UserName);
+            if (editUser == null)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Record_Not_Exist, contentRootPath);
+                return RedirectToAction("UserList", new { notification = nvm });
+            }
+            var status = _userManager.DeleteAsync(editUser);
+            if (status.Result.Succeeded)
+            {
+                nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Success_Remove, contentRootPath);
+                return RedirectToAction("UserList", new { notification = nvm });
+            }
+            nvm = NotificationHandler.SerializeMessage<string>(NotificationHandler.Failed_Remove, contentRootPath);
+            return RedirectToAction("UserList", new { notification = nvm });
+        }
+#endregion
     }
 }

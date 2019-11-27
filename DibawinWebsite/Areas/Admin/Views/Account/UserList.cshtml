@@ -3,7 +3,8 @@
     ViewData["Title"] = "لیست کاربران";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
+@inject RoleManager<IdentityRole> _rolemanager;
+@inject UserManager<ApplicationUser> _usermanager;
 
 @model List<ApplicationUser>
 <!-- Main content -->
@@ -18,15 +19,15 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped table-responsive">
+                        <table id="example1" class="table table-bordered table-striped table-responsive text-center">
                             <thead>
                                 <tr>
                                     <th>ردیف</th>
                                     <th>نام کاربری</th>
-                                    <th>ایمیل</th>
+                                    <th>نام و نام خانوادگی</th>
                                     <th>شماره تلفن</th>
                                     <th>تایید ایمیل</th>
-                                    <th>تایید شماره تلفن</th>
+                                    <th>تایید تلفن</th>
                                     <th>ویرایش</th>
                                 </tr>
                             </thead>
@@ -37,7 +38,7 @@
                                     <th>نام و نام خانوادگی</th>
                                     <th>شماره تلفن</th>
                                     <th>تایید ایمیل</th>
-                                    <th>تایید شماره تلفن</th>
+                                    <th>تایید تلفن</th>
                                     <th>ویرایش</th>
                                 </tr>
                             </tfoot>
@@ -47,20 +48,35 @@
                                 {
                                     <tr>
                                         <td>@i</td>
-                                        <td>@item.UserName</td>
+                                        <td >
+                                            <span >
+                                                @item.UserName
+                                            </span>
+                                            @foreach (var itemrole in _rolemanager.Roles)
+                                            {
+                                                @*@(await usermanager.IsInRoleAsync(item, itemrole.Name) ? " badge-success" : " badge-warning")*@
+                                                if (_usermanager.IsInRoleAsync(item, itemrole.Name).Result)
+                                                {
+                                                    <span class="badge-dark block ml-15 mr-15">
+                                                        @itemrole.Name
+                                                    </span>
+                                                }
+                                            }
+
+                                        </td>
                                         <td>@item.FirstName- @item.LastName</td>
                                         <td>@item.PhoneNumber</td>
-                                        <td>
+                                        <td >
                                             <span class="badge badge-xl block @(item.PhoneNumberConfirmed ? " badge-success" : " badge-warning")">
                                                 @(item.EmailConfirmed ? " تایید شده" : " تایید نشده")
                                             </span>
                                         </td>
-                                        <td>
+                                        <td  >
                                             <span class="badge badge-xl block @(item.EmailConfirmed ? " badge-success" : " badge-warning")">
                                                 @(item.EmailConfirmed ? " تایید شده" : " تایید نشده")
                                             </span>
                                         </td>
-                                        <td>
+                                        <td  >
                                             <div class="btn-group btn-block">
                                                 <button type="button" class="btn btn-info btn-block" data-toggle="dropdown">ویرایش</button>
                                                 <button type="button" class="btn btn-info dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
@@ -68,12 +84,19 @@
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu rtl-class-center" x-placement="bottom-start" style="position: absolute; transform: translate3d(-1px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                    <a class="dropdown-item btn-warning" asp-area="Admin" asp-controller="Account" asp-action="EditUser" asp-route-username="@item.UserName">
+                                                    <a class="dropdown-item btn-warning"
+                                                       asp-area="Admin" asp-controller="Account" asp-action="EditUser" asp-route-username="@item.UserName">
                                                         ویرایش
                                                     </a>
-                                                    <a class="dropdown-item btn-warning" href="#">تغییر رمز</a>
+                                                    <a class="dropdown-item btn-warning"
+                                                       asp-area="Admin" asp-controller="Account" asp-action="UserPasswordChange" asp-route-username="@item.UserName">
+                                                        تغییر رمز
+                                                    </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item btn-danger" href="#">حذف </a>
+                                                    <a class="dropdown-item btn-danger"
+                                                       asp-area="Admin" asp-controller="Account" asp-action="DeleteUser" asp-route-username="@item.UserName">
+                                                        حذف
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
