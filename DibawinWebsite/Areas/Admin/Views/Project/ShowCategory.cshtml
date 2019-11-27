@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewData["Title"] = "مشاهده دسته بندی";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model Category
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered box-solid bg-black">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مشخصات دسته بندی</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                        @if (Model != null)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td width="25%">عنوان</td>
+                                    <td width="75%" class="strong-text">@Model.Name</td>
+                                </tr>
+                                <tr>
+                                    <td>عنوان لاتین</td>
+                                    <td>
+                                        @Model.LatinName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>نام مستعار</td>
+                                    <td>
+                                        @Model.AliasName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>متن Alt</td>
+                                    <td>
+                                        @Model.TitleAltName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>عنوان سر دسته</td>
+                                    <td>
+                                        @if (Model.Parent != null)
+                                        {
+                                            <a asp-area="Admin" asp-controller="Project" asp-action="ShowCategory" asp-route-id="@Model.Parent.Id" class="badge badge-yellow" title="@Model.Parent.LatinName">@Model.Parent.Name</a>
+                                        }
+                                        else
+                                        {
+                                            <label class="text-underline">فاقد سر دسته</label>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>زیر دسته ها</td>
+                                    <td>
+                                        @if (Model.InverseParent != null)
+                                        {
+                                            if (Model.InverseParent.Count > 0)
+                                            {
+                                                foreach (var item in Model.InverseParent)
+                                                {
+                                                    <a asp-area="Admin" asp-controller="Project" asp-action="ShowCategory" asp-route-id="@item.Id" class="badge badge-dark" title="@item.LatinName">@item.Name</a>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>اتصال به لینک خارجی</td>
+                                    <td>
+                                        <a href="@Model.ConnectedLink">@Model.ConnectedLink</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>توضیحات</td>
+                                    <td>@Model.Description</td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>هیچ رکوردی یافت نشد!</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-solid bg-info box-outline-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">جزئیات</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                        @if (Model != null)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>تاریخ ثبت</td>
+                                    <td class="farsi-num text-primary">@CustomizeCalendar.GregorianToPersian(Model.RegDateTime)</td>
+                                </tr>
+                                <tr>
+                                    <td>ثبت شده توسط</td>
+                                    <td class="farsi-num">
+                                        <a asp-area="Admin" asp-controller="Account" asp-action="ShowUser" asp-route-id="@Model.UserId" class="dashed-underline">@Model.User.UserName</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>وضعیت</td>
+                                    <td>
+                                        <span class="badge @(Model.Status == true ? "badge-success" : "badge-danger")">
+                                            @(Model.Status == true ? "فعال" : "غیرفعال")
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ویرایش شده توسط</td>
+                                    <td class="small-text">
+                                        <a href="#" title="Click on me" data-toggle="modal" data-target="#myModal">کلیک کنید</a>
+                                        <!-- sample modal content -->
+                                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel">ویرایش شده توسط کاربران ذیل</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if(Model.ModifiedBy != null)
+                                                        {
+                                                            var arrModified = Model.ModifiedBy.Split("\n");
+                                                            if(arrModified.Length > 0)
+                                                            {
+                                                                foreach(var item in arrModified)
+                                                                {
+                                                                    <p class="farsi-num">@item</p>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>این رکورد تاکنون توسط هیچ کاربری ویرایش نگردیده است.</p>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">بستن</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>هیچ رکوردی یافت نشد!</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div>
+                <a asp-area="Admin" asp-controller="Project" asp-action="EditCategory" asp-route-id="@Model.Id" class="btn bg-navy pull-left">ویرایش</a>
+                <a asp-area="Admin" asp-controller="Project" asp-action="CategoryList" class="btn btn-low-priotity pull-left margin-l-10">بازگشت</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- /.col -->
+
+</section>
+<!-- /.content -->

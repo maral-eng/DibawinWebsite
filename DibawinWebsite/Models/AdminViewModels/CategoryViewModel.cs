@@ -11,7 +11,7 @@ namespace DibawinWebsite.Models.AdminViewModels
     public class CategoryViewModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "پر کردن این فیلد الزامیست")]
+        [Required(ErrorMessage = "تکمیل این فیلد الزامی میباشد")]
         [DisplayName("نام دسته بندی")]
         public string Name { get; set; }
         [DisplayName("توضیحات")]

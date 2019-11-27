@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewData["Title"] = "لیست پروژه ها";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var pageNumber = (int)ViewData["pagenumber"];
+    var pageSize = (int)ViewData["pagesize"];
+    var totalRecords = (int)ViewData["totalRecords"];
+}
+@model List<Projects>
+@{
+    _RecordsSettingViewModel RecordsTargetInfo = new _RecordsSettingViewModel()
+    {
+        AreaName = "Admin",
+        ControllerName = "Project",
+        ActionsName = new ActionsName()
+        {
+            Show = "ShowProject",
+            Edit = "EditProject",
+            PermanentRemove = "RemoveProject",
+            TemporaryRemove = "TemporaryRemoveProject",
+            Restore = "RestoreProject",
+            List = "ProjectList"
+        }
+    };
+}
+<section class="content">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="box box-bordered">
+                <div class="box-header with-border">
+                    <h3 class="box-title">لیست پروژه ها</h3>
+                    <div class="pull-left">
+                        <a asp-area="Admin" asp-controller="Project" asp-action="AddProject" class="btn btn-info"><i class="fa fa-plus"></i> ثبت پروژه </a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    @* ======= Filter ======= *@
+                    @await Html.PartialAsync("~/Areas/Admin/Views/Shared/partials/_ListFilter.cshtml", RecordsTargetInfo)
+                    @*------------------------*@
+
+                    <table id="example1" class="table table-bordered table-striped table-responsive small-text-table">
+                        <thead>
+                            <tr>
+                                <th width="5%">R</th>
+                                <th>عنوان</th>
+                                <th>عنوان لاتین</th>
+                                <th>تاریخ شروع</th>
+                                <th>تاریخ پایان</th>
+                                <th>کارفرما</th>
+                                <th>مدیر پروژه</th>
+                                <th>توضیحات</th>
+                                <th width="10%">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 1;
+                                i = ((pageNumber - 1) * pageSize) + i;
+                            }
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr class="@(item.Deleted == true ? "bg-pale-danger" : "")" title="@(item.Deleted == false ? "حذف شده" :"")">
+                                            <td class="farsi-num @(item.Status == false ? "bg-pale-purple" : "")" title="@(item.Status == false ? "غیر فعال" :"فعال")">@(i++)</td>
+                                            <td>@item.Title</td>
+                                            <td>@item.LatinTitle</td>
+                                            <td class="farsi-num text-cyan">@CustomizeCalendar.GregorianToPersian(item.Starts ?? DateTime.Now)</td>
+                                            <td class="farsi-num text-red">@CustomizeCalendar.GregorianToPersian(item.Ends ?? DateTime.Now)</td>
+                                            <td>
+                                                @try
+                                                {
+                                                    <label>@item.Client.Title</label>
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    <label> -- </label>
+                                                }
+                                            </td>
+                                            <td>@item.ProjectManagerFullName</td>
+                                            <td>@(item.Description != null ? item.Description.Length > 20 ? $"{item.Description.Substring(0, 19)}..." : item.Description : "فاقد توضیحات")</td>
+                                            <td>
+                                                @{
+                                                    RecordsTargetInfo.RecordId = item.Id.ToString();
+                                                    RecordsTargetInfo.Status = item.Status;
+                                                    RecordsTargetInfo.Deleted = item.Deleted;
+                                                }
+                                                @await Html.PartialAsync("~/Areas/Admin/Views/Shared/partials/_TableDropDownActionButtons.cshtml", RecordsTargetInfo)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                    <!-- Page navigation start -->
+                    @if (Model.Count > 0)
+                    {
+                        <div class="row mb-30 mb-sm-40 mb-xs-30 mx-auto">
+                            <div class="pagination-box hidden-mb-45 " style="float: none;margin: 0 auto;">
+                                <nav aria-label="Page navigation example">
+                                    <div class="paging farsi-num">
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    }
+                    <!-- Page navigation end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* ======= Remove Modal =======*@
+@await Html.PartialAsync("~/Areas/Admin/Views/Shared/partials/_YesNoModal.cshtml", RecordsTargetInfo)
+
+<script>
+    //pagging
+        $(function () {
+            $(".paging").pagination({
+                items: @totalRecords,
+                itemsOnPage: @pageSize,
+                displayedPages: 3,
+                cssStyle: 'light-theme',
+                currentPage: @pageNumber,
+                hrefTextPrefix: `@RecordsTargetInfo.ActionsName.List?filter=@TempData["currentFilter"]&pageNumber=`,
+                prevText: 'قبلی',
+                nextText: 'بعدی'
+            });
+    });
+</script>

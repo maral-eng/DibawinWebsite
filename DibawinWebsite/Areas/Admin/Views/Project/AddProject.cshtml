@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "ثبت پروژه";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var SkillsList = ViewData["SkillsList"] as List<Skills>;
+    var clients = ViewData["Clients"] as List<Clients>;
+    var categories = ViewData["CatList"] as List<Category>;
 }
 <!-- Select2 -->
 <link href="~/shared/admin/assets/vendor_components/select2/dist/css/select2.min.css" rel="stylesheet" />
@@ -13,8 +16,9 @@
             <div class="box box-bordered">
                 <div class="box-header with-border">
                     <h3 class="box-title">مشخصات پروژه</h3>
+                    @await Html.PartialAsync("~/Areas/Admin/Views/shared/partials/_StaticAlert.cshtml")
                 </div>
-                <form asp-area="Admin" asp-controller="Project" asp-action="AddConfirm" method="post">
+                <form asp-area="Admin" asp-controller="Project" asp-action="AddProjectConfirm" method="post">
                     <div class="box-body">
                         <div class="form-group row">
                             <label for="txt1" class="col-sm-4 col-form-label">عنوان پروژه <span class="red-color">*</span></label>
@@ -24,31 +28,92 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="txt2" class="col-sm-4 col-form-label">عنوان لاتین پروژه <span class="red-color">*</span></label>
+                            <label for="txt2" class="col-sm-4 col-form-label">عنوان لاتین پروژه </label>
                             <div class="col-sm-8">
                                 <input asp-for="LatinTitle" class="form-control" type="text" id="txt2">
                                 <span asp-validation-for="LatinTitle"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="txt3" class="col-sm-4 col-form-label">مدیر پروژه <span class="red-color">*</span></label>
+                            <label for="txt3" class="col-sm-4 col-form-label">مدیر پروژه </label>
                             <div class="col-sm-8">
                                 <input asp-for="ProjectManagerFullName " class="form-control" type="text" id="txt3">
                                 <span asp-validation-for="ProjectManagerFullName"></span>
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">دسته بندی </label>
+                            <div class="col-sm-8">
+                                <select asp-for="CategoryId" class="form-control select2" style="width: 100%;">
+                                    @if (categories != null)
+                                    {
+                                        if (categories.Count > 0)
+                                        {
+                                            <option value="-1">فاقد دسته بندی</option>
+                                            foreach (var item in categories)
+                                            {
+                                                if (item.ParentId > 0)
+                                                {
+                                                    <option value="@item.Id" title="@item.LatinName">@($"{item.Parent.Name} - {item.Name}")</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id" title="@item.LatinName">@item.Name</option>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option selected="selected" value="-1">فاقد دسته بندی</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option selected="selected" value="-1">فاقد دسته بندی</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="CategoryId"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Price" class="col-sm-4 col-form-label">قیمت پروژه <span class="red-color">*</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="Price" class="form-control farsi-num" type="number" value="0" id="Price">
+                                <div id="Price_out"></div>
+                                <span asp-validation-for="Price"></span>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">مشارکت کنندگان در پروژه </label>
                             <div class="col-sm-8">
-                                <select class="form-control select2" multiple="multiple" style="width: 100%;">
+                                <select id="multiDrop1" class="form-control select2" multiple="multiple" style="width: 100%;">
                                     <option>اکبر</option>
                                     <option>نقی</option>
                                     <option>کامبیز</option>
                                     <option>تقی</option>
                                     <option>اقدس</option>
                                 </select>
+                                <input id="multiText1" asp-for="Collaborators" hidden />
                                 <span asp-validation-for="Collaborators"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">کارفرما </label>
+                            <div class="col-sm-8">
+                                @if (clients != null)
+                                {
+                                    if (clients.Count > 0)
+                                    {
+                                        <select asp-for="ClientId" class="form-control select2" style="width: 100%;">
+                                            <option value="-1">نامشخص</option>
+                                            @foreach (var item in clients)
+                                            {
+                                                <option value="@item.Id">@item.Title</option>
+                                            }
+                                        </select>
+                                    }
+                                }
+                                <span asp-validation-for="ClientId"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -57,7 +122,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input asp-for="Starts" class="form-control farsi-num" type="text" id="pdpBig1">
+                                <input asp-for="Starts" class="form-control farsi-num" type="text" id="pdpBig1" autocomplete="off">
                                 <span asp-validation-for="Starts"></span>
                             </div>
                         </div>
@@ -67,8 +132,27 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input asp-for="Ends" class="form-control farsi-num" type="text" id="pdpBig2">
+                                <input asp-for="Ends" class="form-control farsi-num" type="text" id="pdpBig2" autocomplete="off">
                                 <span asp-validation-for="Ends"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">تکنولوژی های مورد استفاده </label>
+                            <div class="col-sm-8">
+                                @if (SkillsList != null)
+                                {
+                                    if (SkillsList.Count > 0)
+                                    {
+                                        <select id="multiDrop2" class="form-control select2" multiple="multiple" style="width: 100%;">
+                                            @foreach (var item in SkillsList)
+                                            {
+                                                <option value="@item.Title">@item.Title</option>
+                                            }
+                                        </select>
+                                    }
+                                }
+                                <span asp-validation-for="Technologies"></span>
+                                <input id="multiText2" asp-for="Technologies" hidden />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -76,11 +160,18 @@
                             <div class="col-sm-8">
                                 <div class="controls">
                                     <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" required value="single" name="styled_single_checkbox" class="custom-control-input" checked> 
-                                        <span class="custom-control-indicator"></span> 
+                                        <input asp-for="Status" type="checkbox" value="true" class="custom-control-input" checked>
+                                        <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description"> وضعیت </span>
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt4" class="col-sm-4 col-form-label">توضیحات </label>
+                            <div class="col-sm-8">
+                                <textarea rows="3" asp-for="Description" class="form-control" id="txt4"></textarea>
+                                <span asp-validation-for="Description"></span>
                             </div>
                         </div>
                     </div>
@@ -99,7 +190,7 @@
                     <h3 class="box-title">تصاویر پروژه</h3>
                 </div>
                 <div class="box-body">
-                    @await Html.PartialAsync("~/Areas/Admin/Views/shared/partials/_UploadFiles.cshtml")
+                    @await Html.PartialAsync("~/Areas/Admin/Views/shared/partials/_UploadFiles.cshtml", ViewData["action"] = "AddProject")
                 </div>
 
             </div>
@@ -108,11 +199,3 @@
     </div>
     <!-- /.row -->
 </section>
-<script src="~/shared/shared_contents/persian_datepicker/js/persianDatepicker.min.js"></script>
-<script>
-    $("#pdpBig1, #pdpBig2").persianDatepicker({
-        cellWidth: 38,
-        cellHeight: 20,
-        fontSize: 13
-    });
-</script>

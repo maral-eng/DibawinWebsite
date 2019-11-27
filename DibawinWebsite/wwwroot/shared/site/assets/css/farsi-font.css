@@ -1,0 +1,23 @@
+﻿
+/******************* 
+import Farsi fonts
+*******************/
+@font-face {
+    font-family: 'IRANSansWeb';
+    src: url('../../../shared_contents/font/webfonts/fonts/eot/IRANSansWeb.eot'); /* IE9 Compat Modes */
+    src: url('../../../shared_contents/font/webfonts/fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../../shared_contents/font/webfonts/fonts/woff2/IRANSansWeb.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../../../shared_contents/font/webfonts/fonts/woff/IRANSansWeb.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../../shared_contents/font/webfonts/fonts/ttf/IRANSansWeb.ttf') format('truetype') /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'NumIRANSans';
+    src: url('../../../shared_contents/font/webfonts/FarsiNumbers/webFonts/fonts/eot/IRANSansWeb(FaNum).eot'); /* IE9 Compat Modes */
+    src: url('../../../shared_contents/font/webfonts/FarsiNumbers/webFonts/fonts/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../../shared_contents/font/webfonts/FarsiNumbers/webFonts/fonts/woff2/IRANSansWeb(FaNum).woff2') format('woff2'), /* Super Modern Browsers */
+    url('../../../shared_contents/font/webfonts/FarsiNumbers/webFonts/fonts/woff/IRANSansWeb(FaNum).woff') format('woff'), /* Pretty Modern Browsers */
+    url('../../../shared_contents/font/webfonts/FarsiNumbers/webFonts/fonts/ttf/IRANSansWeb(FaNum).ttf') format('truetype') /* Safari, Android, iOS */
+}
+
+/*------------------------------------------------------------------*/

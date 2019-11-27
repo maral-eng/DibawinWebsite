@@ -102,6 +102,16 @@ namespace DibawinWebsite.ClassLibraries.NotificationHandler
         public static string DuplicatedValue { get; set; } = "DuplicatedValue";
 
         /// <summary>
+        /// بازیابی موفق رکورد
+        /// </summary>
+        public static string Success_Restore { get; set; } = "Success_Restore";
+
+        /// <summary>
+        /// بازیابی ناموفق رکورد
+        /// </summary>
+        public static string Failed_Restore { get; set; } = "Failed_Restore";
+
+        /// <summary>
         /// <para>Read Json file and serialize to 'NotificationViewModel'</para>
         /// خواندن فایل متن و تبدیل آن به مدل 'NotificationViewModel'
         /// </summary>

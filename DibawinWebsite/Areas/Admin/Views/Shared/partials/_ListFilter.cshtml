@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+    int currentFilter = Convert.ToInt32(TempData["currentFilter"]);
+}
+@model _RecordsSettingViewModel
+
+@if (Model != null)
+{
+    <form asp-area="@Model.AreaName" asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.List" method="post">
+        <div class="form-group row ichack-input filter-area">
+            
+            <div class="col-sm-2">
+                <label>
+                    <input name="filter" value="0" type="radio" id="radio1" class="minimal-red" @(currentFilter == 0 ? "checked" : "") />
+                    رکوردهای فعال
+                </label>
+            </div>
+            <div class="col-sm-2">
+                <label>
+                    <input name="filter" value="1" type="radio" id="radio2" class="minimal-red" @(currentFilter == 1 ? "checked" : "") />
+                    رکوردهای حذف شده
+                </label>
+            </div>
+            <div class="col-sm-2">
+                <label>
+                    <input name="filter" value="2" type="radio" id="radio3" class="minimal-red" @(currentFilter == 2 ? "checked" : "") />
+                    همه رکوردها
+                </label>
+            </div>
+
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-default btn-xs pull-left"><i class="fa fa-filter"></i> اعمال فیلتر</button>
+            </div>
+        </div>
+    </form>
+}

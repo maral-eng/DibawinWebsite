@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+@model _RecordsSettingViewModel
+@inject UserManager<ApplicationUser> _userManager;
+@{
+    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+    var currentUserRoles = await _userManager.GetRolesAsync(currentUser);
+    var isAdmin = currentUserRoles.Where(x => x == "Admin").FirstOrDefault();
+}
+<div class="btn-group">
+    <button type="button" class="btn bg-maroon">تنظیمات</button>
+    <button type="button" class="btn bg-maroon dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">باز کردن منوی تنظیمات</span>
+    </button>
+    <div class="dropdown-menu">
+
+        @if (Model != null)
+        {
+            if (Model.AreaName != null)
+            {
+                <a asp-area="@Model.AreaName" asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.Show" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-eye float-left"></i> مشاهده </a>
+                <div class="dropdown-divider"></div>
+                <a asp-area="@Model.AreaName" asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.Edit" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-edit float-left"></i> ویرایش</a>
+
+                @if (Model.Status == false || Model.Deleted == true)
+                {
+                    <a asp-area="@Model.AreaName" asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.Restore" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-recycle float-left"></i> بازیابی</a>
+                }
+                else
+                {
+                    <a asp-area="@Model.AreaName" asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.TemporaryRemove" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-trash float-left"></i> حذف</a>
+                }
+                @if (isAdmin == "Admin")
+                {
+                    <div class="dropdown-divider"></div>
+                    <a data-toggle="modal" data-target="#modal-danger" id="btnRemove" data-id="@Model.RecordId" class="dropdown-item rtl-class-right red-color cursor-pointer"><i class="fa fa-remove float-left"></i> حذف دائم</a>
+                }
+            }
+            else
+            {
+                <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.Show" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-eye float-left"></i> مشاهده</a>
+                <div class="dropdown-divider"></div>
+                <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.Edit" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-edit float-left"></i> ویرایش</a>
+
+                @if (Model.Status == false || Model.Deleted == true)
+                {
+                    <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.Restore" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-recycle float-left"></i> بازیابی</a>
+                }
+                else
+                {
+                    <a asp-controller="@Model.ControllerName" asp-action="@Model.ActionsName.TemporaryRemove" asp-route-id="@Model.RecordId" class="dropdown-item rtl-class-right"><i class="fa fa-trash float-left"></i> حذف</a>
+                }
+                @if (isAdmin == "Admin")
+                {
+                    <div class="dropdown-divider"></div>
+                    <a data-toggle="modal" data-target="#modal-danger" id="btnRemove" data-id="@Model.RecordId" class="dropdown-item rtl-class-right red-color cursor-pointer"><i class="fa fa-remove float-left"></i> حذف دائم</a>
+                }
+            }
+        }
+    </div>
+</div>

@@ -103,10 +103,27 @@ namespace DibawinWebsite.Areas.Identity.Data
         public virtual DbSet<Features> Features { get; set; }
         public virtual DbSet<Clients> Clients { get; set; }
         public virtual DbSet<ClientAddress> ClientAddress { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Skills> Skills { get; set; }
+        public virtual DbSet<JobsTitle> JobsTitle { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            builder.Entity<Employee>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
+            builder.Entity<Skills>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
+            builder.Entity<JobsTitle>(entity =>
+            {
+                entity.Property(b => b.Status).HasDefaultValue(true);
+                entity.Property(b => b.RegDateTime).HasDefaultValueSql("getdate()");
+            });
             builder.Entity<Projects>(entity =>
             {
                 entity.Property(b => b.Status).HasDefaultValue(true);

@@ -70,9 +70,13 @@ namespace DibawinWebsite.Models.AdminViewModels
         [DisplayName("تصاویر")]
         public List<IFormFile> img { get; set; }
 
-        [Required]
+        //[Required]
         [DisplayName("تصویر‌اصلی")]
         public IFormFile MainImage { get; set; } //تصویر اصلی 
+
+        public string Technologies { get; set; }
+
+        public decimal Price { get; set; }
 
     }
 }

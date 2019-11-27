@@ -1,0 +1,30 @@
+/* Add here all your CSS customizations */
+
+html .text-color-primary, html .text-primary {
+    color: #00ace6 !important;
+}
+
+.farsi-num {
+    font-family: 'NumIRANSans','IRANSansWeb', Tahoma, Arial, sans-serif !important;
+}
+
+.rtl-left-text,
+.rtl-right-text {
+    direction: rtl !important;
+}
+.rtl-right-text{
+    text-align: right !important;
+}
+.rtl-left-text{
+    text-align:left !important;
+}
+#headerTopSearchDropdown,
+.header-row {
+    direction: ltr;
+}
+.header-nav-main{
+    direction:rtl !important;
+}
+.simple-search {
+    direction:rtl;
+}

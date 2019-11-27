@@ -1,0 +1,329 @@
+﻿
+@{
+    ViewData["Title"] = "ویرایش پروژه";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var SkillsList = ViewData["SkillsList"] as List<Skills>;
+    var clients = ViewData["Clients"] as List<Clients>;
+    var categories = ViewData["CatList"] as List<Category>;
+
+    var selectedRecord = ViewData["selectedRecord"] as Projects;
+}
+@model ProjectClientViewModel
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered box-solid bg-black">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مشخصات پروژه</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form asp-area="Admin" asp-controller="Project" asp-action="EditProjectConfirm" method="post" enctype="multipart/form-data">
+                        <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                            @if (selectedRecord != null)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>
+                                            <span class="red-color farsi-num">@selectedRecord.Id</span>
+                                            <input asp-for="Id" value="@selectedRecord.Id" type="text" class="form-control" hidden />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">عنوان</td>
+                                        <td width="75%" class="strong-text">
+                                            <input asp-for="Title" value="@selectedRecord.Title" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>عنوان لاتین</td>
+                                        <td>
+                                            <input asp-for="LatinTitle" value="@selectedRecord.LatinTitle" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>مدیر پروژه</td>
+                                        <td>
+                                            <input asp-for="ProjectManagerFullName" value="@selectedRecord.ProjectManagerFullName" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>دسته بندی</td>
+                                        <td>
+                                            <select asp-for="CategoryId" class="form-control select2" style="width: 100%;">
+                                                @if (categories != null)
+                                                {
+                                                    if (categories.Count > 0)
+                                                    {
+                                                        <option value="-1">فاقد دسته بندی</option>
+                                                        foreach (var item in categories)
+                                                        {
+                                                            if (item.ParentId > 0)
+                                                            {
+                                                                if (selectedRecord.CategoryId == item.Id)
+                                                                {
+                                                                    <option value="@item.Id" title="@item.LatinName" selected>@($"{item.Parent.Name} - {item.Name}")</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Id" title="@item.LatinName">@($"{item.Parent.Name} - {item.Name}")</option>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                if (selectedRecord.CategoryId == item.Id)
+                                                                {
+                                                                    <option value="@item.Id" title="@item.LatinName" selected>@item.Name</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Id" title="@item.LatinName">@item.Name</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <option selected="selected" value="-1">فاقد دسته بندی</option>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <option selected="selected" value="-1">فاقد دسته بندی</option>
+                                                }
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>قیمت</td>
+                                        <td>
+                                            @if (selectedRecord.Price > 0)
+                                            {
+                                                <input asp-for="Price" id="Price" value="@(double.Parse(selectedRecord.Price.ToString().Split(",")[0]))" class="form-control farsi-num local-price" />
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="Price" id="Price" value="0" class="form-control farsi-num local-price" />
+                                            }
+                                            <div id="Price_out"></div>
+                                            <span asp-validation-for="Price"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>مشارکت کنندگان پروژه</td>
+                                        <td>
+                                            <select id="multiDrop1" class="form-control select2" multiple="multiple" style="width: 100%;">
+                                                <option>اکبر</option>
+                                                <option>نقی</option>
+                                                <option>کامبیز</option>
+                                                <option>تقی</option>
+                                                <option>اقدس</option>
+                                            </select>
+                                            <input id="multiText1" asp-for="Collaborators" value="@selectedRecord.Collaborators" hidden />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>کارفرما</td>
+                                        <td>
+                                            @if (clients != null)
+                                            {
+                                                if (clients.Count > 0)
+                                                {
+                                                    <select asp-for="ClientId" class="form-control select2" style="width: 100%;">
+                                                        <option value="-1">نامشخص</option>
+                                                        @foreach (var item in clients)
+                                                        {
+                                                            if (selectedRecord.ClientId == item.Id)
+                                                            {
+                                                                <option value="@item.Id" selected>@item.Title</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Id">@item.Title</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>تکنولوژی های مورد استفاده</td>
+                                        <td>
+                                            @if (SkillsList != null)
+                                            {
+                                                if (SkillsList.Count > 0)
+                                                {
+                                                    var arrTechnologies = selectedRecord.Technologies.Split(",");
+                                                    <select id="multiDrop2" class="form-control select2" multiple="multiple" style="width: 100%;">
+                                                        @foreach (var item in SkillsList)
+                                                        {
+                                                            if (arrTechnologies.Contains(item.Title))
+                                                            {
+                                                                <option value="@item.Title" selected>@item.Title</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Title">@item.Title</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    <input hidden id="multiText2" asp-for="Technologies" value="@selectedRecord.Technologies" />
+                                                }
+                                            }
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>تاریخ شروع</td>
+                                        <td class="farsi-num text-blue">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input asp-for="Starts" value="@CustomizeCalendar.GregorianToPersianSeperatedWithSlash(selectedRecord.Starts ?? DateTime.Now)" class="form-control farsi-num" type="text" id="pdpBig1" autocomplete="off">
+                                                <span asp-validation-for="Starts"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>تاریخ پایان</td>
+                                        <td class="farsi-num text-red">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input asp-for="Ends" value="@CustomizeCalendar.GregorianToPersianSeperatedWithSlash(selectedRecord.Ends ?? DateTime.Now)" class="form-control farsi-num" type="text" id="pdpBig2" autocomplete="off">
+                                                <span asp-validation-for="Ends"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>وضعیت</td>
+                                        <td>
+                                            @if (selectedRecord.Status == true)
+                                            {
+                                                <input asp-for="Status" type="checkbox" id="md_checkbox_6" class="chk-col-blue" checked value="true" />
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="Status" type="checkbox" id="md_checkbox_6" class="chk-col-blue" value="true" />
+                                            }
+                                            <label for="md_checkbox_6">فعال</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>توضیحات</td>
+                                        <td>
+                                            <input asp-for="Description" value="@selectedRecord.Description" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                            else
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>هیچ رکوردی یافت نشد!</td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info pull-left">ثبت تغییرات</button>
+                            <a asp-area="Admin" asp-controller="Project" asp-action="ProjectList" class="btn btn-low-priotity pull-left margin-l-10">انصراف</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-solid bg-info box-outline-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">جزئیات</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                        @if (selectedRecord != null)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>تاریخ ثبت</td>
+                                    <td class="farsi-num text-primary">@CustomizeCalendar.GregorianToPersian(selectedRecord.RegDateTime)</td>
+                                </tr>
+                                <tr>
+                                    <td>ثبت شده توسط</td>
+                                    <td class="farsi-num">
+                                        <a asp-area="Admin" asp-controller="Account" asp-action="ShowUser" asp-route-id="@selectedRecord.DefinedByUserId" class="dashed-underline">@selectedRecord.DefinedByUser.UserName</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ویرایش شده توسط</td>
+                                    <td class="small-text">
+                                        <a href="#" title="Click on me" data-toggle="modal" data-target="#myModal">کلیک کنید</a>
+                                        <!-- sample modal content -->
+                                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel">ویرایش شده توسط کاربران ذیل</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if (selectedRecord.ModifiedByUsers != null)
+                                                        {
+                                                            var arrModified = selectedRecord.ModifiedByUsers.Split("\n");
+                                                            if (arrModified.Length > 0)
+                                                            {
+                                                                foreach (var item in arrModified)
+                                                                {
+                                                                    <p class="farsi-num">@item</p>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>این رکورد تاکنون توسط هیچ کاربری ویرایش نگردیده است.</p>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">بستن</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>هیچ رکوردی یافت نشد!</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div>
+                <a asp-area="Admin" asp-controller="Project" asp-action="EditProject" asp-route-id="@selectedRecord.Id" class="btn bg-navy pull-left">ویرایش</a>
+                <a asp-area="Admin" asp-controller="Project" asp-action="ProjectList" class="btn btn-low-priotity pull-left margin-l-10">بازگشت</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- /.col -->
+
+</section>
+<!-- /.content -->
