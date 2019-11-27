@@ -8,14 +8,23 @@
     var actionName = ViewContext.RouteData.Values["action"].ToString();
 
     var controllerTitle = MenuGenerator.GetTitleOfController(contollerName);
+    var actionTitle = MenuGenerator.GetTitleOfAction(actionName);
 }
 <section class="content-header">
     <h1>
-        @(controllerTitle ?? "داشبورد")
-        <small>@actionName</small>
+        @(controllerTitle ?? "داشبورد") |
+        <small>@actionTitle</small>
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-area="@areaName" asp-controller="@contollerName" asp-action="@actionName"><i class="fa fa-dashboard"></i> @contollerName</a></li>
-        <li class="breadcrumb-item active">@actionName</li>
+        <li class="breadcrumb-item">
+            <a asp-area="@areaName" asp-controller="@contollerName" asp-action="Index">
+                <i class="fa fa-dashboard"></i> @controllerTitle
+            </a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a asp-area="@areaName" asp-controller="@contollerName" asp-action="actionName">
+                @actionTitle
+            </a>
+        </li>
     </ol>
 </section>

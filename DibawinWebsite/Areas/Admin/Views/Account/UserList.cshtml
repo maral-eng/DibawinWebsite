@@ -1,12 +1,11 @@
 ﻿
 @{
     ViewData["Title"] = "لیست کاربران";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";   
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 
 @model List<ApplicationUser>
-   
 <!-- Main content -->
 <div>
     <section class="content">
@@ -29,39 +28,56 @@
                                     <th>تایید ایمیل</th>
                                     <th>تایید شماره تلفن</th>
                                     <th>ویرایش</th>
-                                    <th>حذف</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th> ردیف</th>
                                     <th>نام کاربری</th>
-                                    <th>ایمیل</th>
+                                    <th>نام و نام خانوادگی</th>
                                     <th>شماره تلفن</th>
                                     <th>تایید ایمیل</th>
                                     <th>تایید شماره تلفن</th>
                                     <th>ویرایش</th>
-                                    <th>حذف</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 @{int i = 1;}
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td>@i</td>
-                                    <td>@item.UserName</td>
-                                    <td>@item.FirstName</td>
-                                    <td>@item.LastName</td>
-                                    <td>@item.UserName</td>
-                                    <td>@item.UserName</td>
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-primary btn-xs">ویرایش</button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-danger btn-xs">حذف</button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@item.UserName</td>
+                                        <td>@item.FirstName- @item.LastName</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>
+                                            <span class="badge badge-xl block @(item.PhoneNumberConfirmed ? " badge-success" : " badge-warning")">
+                                                @(item.EmailConfirmed ? " تایید شده" : " تایید نشده")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-xl block @(item.EmailConfirmed ? " badge-success" : " badge-warning")">
+                                                @(item.EmailConfirmed ? " تایید شده" : " تایید نشده")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-block">
+                                                <button type="button" class="btn btn-info btn-block" data-toggle="dropdown">ویرایش</button>
+                                                <button type="button" class="btn btn-info dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu rtl-class-center" x-placement="bottom-start" style="position: absolute; transform: translate3d(-1px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                    <a class="dropdown-item btn-warning" asp-area="Admin" asp-controller="Account" asp-action="EditUser" asp-route-username="@item.UserName">
+                                                        ویرایش
+                                                    </a>
+                                                    <a class="dropdown-item btn-warning" href="#">تغییر رمز</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item btn-danger" href="#">حذف </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     i++;
                                 }
 
