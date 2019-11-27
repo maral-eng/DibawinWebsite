@@ -59,7 +59,7 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input asp-for="Dateofbirth" class="form-control farsi-num" type="text" id="pdpBig1"
-                                       value="@CustomizeCalendar.GregorianToPersianStd(editUser.DateOfBirth.Value)">
+                                       @*value="@CustomizeCalendar.GregorianToPersianStd(editUser.DateOfBirth.Value)"*@>
                                 <span asp-validation-for="Dateofbirth"></span>
                             </div>
                         </div>
