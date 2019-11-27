@@ -54,7 +54,15 @@ namespace DibawinWebsite.ClassLibraries
             DateTime d = DateTime.Parse(greDate);
             var MonthName = months.Where(e => e.Key == pc.GetMonth(d)).FirstOrDefault().Value;
             var str_dt = $"{pc.GetDayOfMonth(d)} {MonthName} {pc.GetYear(d)}";
-            //var dt = DateTime.Parse(str_dt);
+
+            return str_dt;
+        }
+        static public string GregorianToPersianSeperatedWithSlash(DateTime gregorianDate)
+        {
+            string greDate = gregorianDate.ToString();
+            DateTime d = DateTime.Parse(greDate);
+            var MonthName = months.Where(e => e.Key == pc.GetMonth(d)).FirstOrDefault().Value;
+            var str_dt = $"{pc.GetYear(d)}/{pc.GetMonth(d)}/{pc.GetDayOfMonth(d)}";
 
             return str_dt;
         }
@@ -62,9 +70,18 @@ namespace DibawinWebsite.ClassLibraries
         {
             string greDate = gregorianDate.ToString();
             DateTime d = DateTime.Parse(greDate);
-            var str_dt = $"{pc.GetYear(d)}/{pc.GetMonth(d)}/{pc.GetDayOfMonth(d)} - {pc.GetHour(d)}:{pc.GetMinute(d)}:{pc.GetSecond(d)}";
-            //var dt = DateTime.Parse(str_dt);
+            var MonthName = months.Where(e => e.Key == pc.GetMonth(d)).FirstOrDefault().Value;
+            var str_dt = $"{pc.GetDayOfMonth(d)} {MonthName} {pc.GetYear(d)} - {pc.GetHour(d)}:{pc.GetMinute(d)}:{pc.GetSecond(d)}";
+
             return str_dt;
+        }
+        static public DateTime GToPDateTime(DateTime gregorianDate)
+        {
+            string greDate = gregorianDate.ToString();
+            DateTime d = DateTime.Parse(greDate);
+            var str_dt = $"{pc.GetYear(d)}/{pc.GetMonth(d)}/{pc.GetDayOfMonth(d)} {pc.GetHour(d)}:{pc.GetMinute(d)}:{pc.GetSecond(d)}";
+            var dt = DateTime.Parse(str_dt);
+            return dt;
         }
 
 

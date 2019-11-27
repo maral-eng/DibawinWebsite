@@ -2,7 +2,15 @@
 .farsi-num {
     font-family: 'NumIRANSans', Tahoma;
 }
-
+.logo-mini{
+    height:0;
+    opacity:0;
+    transition:0.3s;
+}
+.logo-mini-show{
+    height:auto;
+    opacity:1;
+}
 .breadcrumb-item {
     float: right !important;
 }
@@ -116,3 +124,53 @@
         .dropzone .dz-preview {
             margin:8px !important;
         }
+.select2-results__options,
+.select2-results,
+.select2-search__field {
+    text-align: right !important;
+}
+.btn-group .btn{
+    padding:3px 7px !important;
+}
+.small-text-table *{
+    font-size:13px !important;
+}
+.strong-text{
+    font-weight:900 !important;
+    color:#000;
+}
+.dashed-underline{
+    border-bottom:1px dashed;
+}
+.small-text{
+    font-size:12px !important;
+}
+.gold-color {
+    color: #e29800;
+    font-size: 1.2em;
+}
+.alert-gray{
+    background:#f3f3f3 !important;
+    font-size:10px !important;
+    color:#757575 !important;
+}
+.filter-area{
+    padding:10px 0;
+    border-bottom:1px dashed #f6dbdb;
+}
+.cursor-pointer{
+    cursor: pointer !important;
+}
+.table > tbody > tr > td, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > td, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > thead > tr > th {
+    padding: 0.5rem !important;
+}
+.dataTables_length,
+.dataTables_info,
+.dataTables_paginate {
+    display: none !important;
+}

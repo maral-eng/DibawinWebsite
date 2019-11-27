@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewData["Title"] = "افزودن کارفرما";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model ClientViewModel
+<section class="content">
+    <div class="row">
+        <!-- (right) -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مشخصات کارفرما</h3>
+                    @await Html.PartialAsync("~/Areas/Admin/Views/shared/partials/_StaticAlert.cshtml")
+                </div>
+                <form asp-area="Admin" asp-controller="Project" asp-action="AddClientConfirm" method="post">
+                    <div class="box-body">
+                        <div class="form-group row">
+                            <label for="txt1" class="col-sm-4 col-form-label">عنوان کارفرما <span class="red-color">*</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="Title" class="form-control" type="text" id="txt1">
+                                <span asp-validation-for="Title"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt2" class="col-sm-4 col-form-label">عنوان لاتین کارفرما </label>
+                            <div class="col-sm-8">
+                                <input asp-for="LatinTitle" class="form-control" type="text" id="txt2">
+                                <span asp-validation-for="LatinTitle"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt6" class="col-sm-4 col-form-label">نام و نام خانوادگی </label>
+                            <div class="col-sm-8">
+                                <input asp-for="ManagerFullName" class="form-control" type="text" id="txt6">
+                                <span asp-validation-for="ManagerFullName"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt3" class="col-sm-4 col-form-label">کد کارفرما <span class="red-color">*</span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <a class="btn btn-default" id="btnCodeGenerator" data-action="client">تولید کد</a>
+                                    </div>
+                                    <input asp-for="ClientCode" class="form-control" type="text" id="txt3" autocomplete="off">
+                                </div>
+                                <span asp-validation-for="ClientCode"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt4" class="col-sm-4 col-form-label">شماره موبایل <span class="gold-color">**</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="Mobile" class="form-control" type="number" id="txt4">
+                                <span asp-validation-for="Mobile"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt5" class="col-sm-4 col-form-label">ایمیل <span class="gold-color">**</span></label>
+                            <div class="col-sm-8">
+                                <input asp-for="Email" class="form-control" type="email" id="txt5">
+                                <span asp-validation-for="Email"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-8">
+                                <div class="controls">
+                                    <label class="custom-control custom-checkbox">
+                                        <input asp-for="Status" type="checkbox" value="true" class="custom-control-input" checked>
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description"> وضعیت </span>
+                                    </label>
+                                </div>
+                                <div class="controls">
+                                    <label class="custom-control custom-checkbox">
+                                        <input asp-for="IsRealPersonality" type="checkbox" value="true" class="custom-control-input">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description"> شخص حقیقی </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt7" class="col-sm-4 col-form-label">آدرس </label>
+                            <div class="col-sm-8">
+                                <textarea asp-for="Address" rows="2" class="form-control" id="txt7"></textarea>
+                                <span asp-validation-for="Address"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt8" class="col-sm-4 col-form-label">فاکس </label>
+                            <div class="col-sm-8">
+                                <input asp-for="Fax" rows="2" class="form-control" id="txt8" />
+                                <span asp-validation-for="Fax"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt9" class="col-sm-4 col-form-label">تلفن ثابت </label>
+                            <div class="col-sm-8">
+                                <input asp-for="Telephone" class="form-control" type="tel" id="txt9" />
+                                <span asp-validation-for="Telephone"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt10" class="col-sm-4 col-form-label">موقعیت بروی نقشه </label>
+                            <div class="col-sm-8">
+                                <input asp-for="Coordinates" class="form-control" type="tel" id="txt10" placeholder="نیازمند افزودن نقشه" />
+                                <span asp-validation-for="Coordinates"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt11" class="col-sm-4 col-form-label">کد پستی </label>
+                            <div class="col-sm-8">
+                                <input asp-for="PostalCode" class="form-control" type="number" id="txt11" />
+                                <span asp-validation-for="PostalCode"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txt12" class="col-sm-4 col-form-label">توضیحات </label>
+                            <div class="col-sm-8">
+                                <textarea asp-for="Comment" rows="3" class="form-control" id="txt12"></textarea>
+                                <span asp-validation-for="Comment"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-left">ثبت</button>
+                        <button type="reset" class="btn btn-low-priotity pull-left margin-l-10">تازه سازی فرم</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- (left) -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered">
+                <div class="box-header with-border">
+                    <h3 class="box-title">لوگوی کارفرما</h3>
+                </div>
+                <div class="box-body">
+                    @await Html.PartialAsync("~/Areas/Admin/Views/shared/partials/_UploadFiles.cshtml", ViewData["action"] = "AddClient")
+                </div>
+
+            </div>
+        </div>
+        <!--/.col (left) -->
+    </div>
+</section>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(function () {
+        $("#btnCodeGenerator").on("click", function () {
+            $.post("/Admin/Services/CodeGenerator", { name: $(this).data("action") }, function (value) {
+                if (value) {
+                    $("#txt3").val(value)
+                }
+            })
+        })
+    })
+</script>
+

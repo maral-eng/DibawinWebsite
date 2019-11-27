@@ -16,8 +16,8 @@ namespace DibawinWebsite.Models
         public bool Status { get; set; }
         public DateTime RegDateTime { get; set; }
         public string DefinedByUserId { get; set; }
-        public string ModifiedByUsers { get; set; } //comination of UserId and ModifiedDateTime
-        //======================================================================================
+        public string ModifiedByUsers { get; set; } //comination of 'UserId' and 'ModifiedDateTime'
+        //=========================================================================================
         public string UserId { get; set; }
         public string ClientCode { get; set; }
         public string ManagerFullName { get; set; }

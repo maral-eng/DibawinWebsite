@@ -21,10 +21,8 @@
    <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Views\shared\" />
     <Folder Include="wwwroot\files\" />
     <Folder Include="wwwroot\shared\shared_contents\js\" />
-    <Folder Include="wwwroot\shared\site\" />
   </ItemGroup>
 
 

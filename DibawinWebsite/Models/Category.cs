@@ -10,16 +10,6 @@ namespace DibawinWebsite.Models
 {
     public partial class Category : IEntity<int>
     {
-        //public Category()
-        //{
-        //    Banner = new HashSet<Banner>();
-        //    InverseParent = new HashSet<Category>();
-        //    ProductAbstract = new HashSet<ProductAbstract>();
-        //    SearchFiltersOnCategory = new HashSet<SearchFiltersOnCategory>();
-        //    TopSlider = new HashSet<TopSlider>();
-        //    UserCategoryVisit = new HashSet<UserCategoryVisit>();
-        //}
-
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -45,6 +35,7 @@ namespace DibawinWebsite.Models
         public int? Priority { get; set; }
         public bool ShowInMenu { get; set; }
         public bool ShowInFooter { get; set; }
+        public string ModifiedBy { get; set; }
 
         [ForeignKey("FieldId")]
         public virtual Field Field { get; set; }

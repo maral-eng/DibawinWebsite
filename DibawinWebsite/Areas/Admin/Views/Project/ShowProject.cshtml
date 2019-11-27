@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewData["Title"] = "مشاهده پروژه";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Projects
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered box-solid bg-black">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مشخصات پروژه</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                        @if (Model != null)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td width="25%">عنوان</td>
+                                    <td width="75%" class="strong-text">@Model.Title</td>
+                                </tr>
+                                <tr>
+                                    <td>عنوان لاتین</td>
+                                    <td>
+                                        @Model.LatinTitle
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>مدیر پروژه</td>
+                                    <td>
+                                        @Model.ProjectManagerFullName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>دسته بندی</td>
+                                    <td>
+                                        @if (Model.Category != null)
+                                        {
+                                            <a asp-area="Admin" asp-controller="Project" asp-action="ShowCategory" asp-route-id="@Model.Category.Id" class="badge badge-yellow" title="@Model.Category.LatinName">@Model.Category.Name</a>
+                                        }
+                                        else
+                                        {
+                                            <label class="text-underline">فاقد دسته</label>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>قیمت</td>
+                                    <td class="farsi-num local-price">
+                                        @(double.TryParse(Model.Price.ToString().Split(",")[0], out double r) ? r : 0)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>مشارکت کنندگان پروژه</td>
+                                    <td>
+                                        @if (Model.Collaborators != null)
+                                        {
+                                            var arrCollaborators = Model.Collaborators.Split(",");
+
+                                            if (arrCollaborators.Length > 0)
+                                            {
+                                                foreach (var item in arrCollaborators)
+                                                {
+                                                    <label class="badge badge-cyan">@item</label>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>کارفرما</td>
+                                    <td>
+                                        @try
+                                        {
+                                            <label>@Model.Client.Title</label>
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            <label>--</label>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>تکنولوژی های مورد استفاده</td>
+                                    <td>
+                                        @if (Model.Technologies != null)
+                                        {
+                                            var arrTechnologies = Model.Technologies.Split(",");
+
+                                            if (arrTechnologies.Length > 0)
+                                            {
+                                                foreach (var item in arrTechnologies)
+                                                {
+                                                    <label class="badge badge-dark">@item</label>
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>تاریخ شروع</td>
+                                    <td class="farsi-num text-blue">@CustomizeCalendar.GregorianToPersian(Model.Starts ?? DateTime.Now)</td>
+                                </tr>
+                                <tr>
+                                    <td>تاریخ پایان</td>
+                                    <td class="farsi-num text-red">@CustomizeCalendar.GregorianToPersian(Model.Ends ?? DateTime.Now)</td>
+                                </tr>
+
+                                <tr>
+                                    <td>توضیحات</td>
+                                    <td>@Model.Description</td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>هیچ رکوردی یافت نشد!</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-solid bg-info box-outline-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">جزئیات</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                        @if (Model != null)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>تاریخ ثبت</td>
+                                    <td class="farsi-num text-primary">@CustomizeCalendar.GregorianToPersian(Model.RegDateTime)</td>
+                                </tr>
+                                <tr>
+                                    <td>ثبت شده توسط</td>
+                                    <td class="farsi-num">
+                                        <a asp-area="Admin" asp-controller="Account" asp-action="ShowUser" asp-route-id="@Model.DefinedByUserId" class="dashed-underline">@Model.DefinedByUser.UserName</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>وضعیت</td>
+                                    <td>
+                                        <span class="badge @(Model.Status == true ? "badge-success" : "badge-danger")">
+                                            @(Model.Status == true ? "فعال" : "غیرفعال")
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ویرایش شده توسط</td>
+                                    <td class="small-text">
+                                        <a href="#" title="Click on me" data-toggle="modal" data-target="#myModal">کلیک کنید</a>
+                                        <!-- sample modal content -->
+                                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel">ویرایش شده توسط کاربران ذیل</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if (Model.ModifiedByUsers != null)
+                                                        {
+                                                            var arrModified = Model.ModifiedByUsers.Split("\n");
+                                                            if (arrModified.Length > 0)
+                                                            {
+                                                                foreach (var item in arrModified)
+                                                                {
+                                                                    <p class="farsi-num">@item</p>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>این رکورد تاکنون توسط هیچ کاربری ویرایش نگردیده است.</p>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">بستن</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>هیچ رکوردی یافت نشد!</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div>
+                <a asp-area="Admin" asp-controller="Project" asp-action="EditProject" asp-route-id="@Model.Id" class="btn bg-navy pull-left">ویرایش</a>
+                <a asp-area="Admin" asp-controller="Project" asp-action="ProjectList" class="btn btn-low-priotity pull-left margin-l-10">بازگشت</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- /.col -->
+
+</section>
+<!-- /.content -->

@@ -1,0 +1,234 @@
+﻿
+@{
+    ViewData["Title"] = "ویرایش دسته بندی";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var selectedCategory = ViewData["selectedCategory"] as Category;
+    var CatList = ViewData["CatList"] as List<Category>;
+}
+@model CategoryViewModel
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-bordered box-solid bg-black">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مشخصات دسته بندی</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form asp-area="Admin" asp-controller="Project" asp-action="EditCategoryConfirm" method="post">
+                        <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                            @if (selectedCategory != null)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>
+                                            <span class="red-color farsi-num">@selectedCategory.Id</span>
+                                            <input asp-for="Id" value="@selectedCategory.Id" type="text" class="form-control" hidden />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">عنوان</td>
+                                        <td width="75%">
+                                            <input asp-for="Name" value="@selectedCategory.Name" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>عنوان لاتین</td>
+                                        <td>
+                                            <input asp-for="LatinName" value="@selectedCategory.LatinName" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>نام مستعار</td>
+                                        <td>
+                                            <input asp-for="AliasName" value="@selectedCategory.AliasName" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>متن Alt</td>
+                                        <td>
+                                            <input asp-for="TitleAltName" value="@selectedCategory.TitleAltName" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>عنوان سر دسته</td>
+                                        <td>
+                                            <select asp-for="ParentId" class="form-control select2" style="width: 100%;">
+                                                @if (CatList != null)
+                                                {
+                                                    if (CatList.Count > 0)
+                                                    {
+                                                        <option value="-1">فاقد سردسته</option>
+                                                        foreach (var item in CatList)
+                                                        {
+                                                            if (selectedCategory.Id != item.Id)
+                                                            {
+                                                                if (item.Parent != null)
+                                                                {
+                                                                    if (item.Id == selectedCategory.ParentId)
+                                                                    {
+                                                                        <option selected value="@item.Id" title="@item.LatinName">@($"{item.Parent.Name} - {item.Name}")</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.Id" title="@item.LatinName">@($"{item.Parent.Name} - {item.Name}")</option>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (item.Id == selectedCategory.ParentId)
+                                                                    {
+                                                                        <option selected value="@item.Id" title="@item.LatinName">@($"{item.Name}")</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.Id" title="@item.LatinName">@($"{item.Name}")</option>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <option selected="selected" value="-1">فاقد دسته</option>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <option selected="selected" value="-1">فاقد دسته</option>
+                                                }
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>اتصال به لینک خارجی</td>
+                                        <td>
+                                            <input asp-for="ConnectedLink" value="@selectedCategory.ConnectedLink" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>وضعیت</td>
+                                        <td>
+                                            @if (selectedCategory.Status == true)
+                                            {
+                                                <input asp-for="Status" type="checkbox" id="md_checkbox_6" class="chk-col-blue" checked value="true" />
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="Status" type="checkbox" id="md_checkbox_6" class="chk-col-blue" value="true" />
+                                            }
+                                            <label for="md_checkbox_6">فعال</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>توضیحات</td>
+                                        <td>
+                                            <input asp-for="Description" value="@selectedCategory.Description" type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                            else
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>هیچ رکوردی یافت نشد!</td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info pull-left">ثبت تغییرات</button>
+                            <a asp-area="Admin" asp-controller="Project" asp-action="CategoryList" class="btn btn-low-priotity pull-left margin-l-10">انصراف</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="box box-solid bg-info box-outline-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">جزئیات</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table style="clear: both" class="table table-bordered table-striped table-responsive">
+                        @if (selectedCategory != null)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>تاریخ ثبت</td>
+                                    <td class="farsi-num text-primary">@CustomizeCalendar.GregorianToPersian(selectedCategory.RegDateTime)</td>
+                                </tr>
+                                <tr>
+                                    <td>ثبت شده توسط</td>
+                                    <td class="farsi-num">
+                                        <a asp-area="Admin" asp-controller="Account" asp-action="ShowUser" asp-route-id="@selectedCategory.UserId" class="dashed-underline">@selectedCategory.User.UserName</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ویرایش شده توسط</td>
+                                    <td class="small-text">
+                                        <a href="#" title="Click on me" data-toggle="modal" data-target="#myModal">کلیک کنید</a>
+                                        <!-- sample modal content -->
+                                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel">ویرایش شده توسط کاربران ذیل</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if (selectedCategory.ModifiedBy != null)
+                                                        {
+                                                            var arrModified = selectedCategory.ModifiedBy.Split("\n");
+                                                            if (arrModified.Length > 0)
+                                                            {
+                                                                foreach (var item in arrModified)
+                                                                {
+                                                                    <p class="farsi-num">@item</p>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>این رکورد تاکنون توسط هیچ کاربری ویرایش نگردیده است.</p>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">بستن</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>هیچ رکوردی یافت نشد!</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- /.col -->
+
+</section>
+<!-- /.content -->

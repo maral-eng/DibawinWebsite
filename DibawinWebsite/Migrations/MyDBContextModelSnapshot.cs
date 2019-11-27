@@ -662,6 +662,8 @@ namespace DibawinWebsite.Migrations
 
                     b.Property<string>("LatinName");
 
+                    b.Property<string>("ModifiedBy");
+
                     b.Property<string>("Name");
 
                     b.Property<int?>("OrderedCount");
@@ -1184,6 +1186,43 @@ namespace DibawinWebsite.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DibawinWebsite.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<string>("JobTitles");
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<string>("ModifiedByUsers");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Skills");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Employee");
+                });
+
             modelBuilder.Entity("DibawinWebsite.Models.Features", b =>
                 {
                     b.Property<int>("Id")
@@ -1529,6 +1568,103 @@ namespace DibawinWebsite.Migrations
                     b.HasIndex("ProductFeatureId");
 
                     b.ToTable("InvoiceProduct");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.JobsTitle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<string>("ModifiedByUsers");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.ToTable("JobsTitle");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LatinTitle = "Back-End developer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "برنامه نویس بک اند"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LatinTitle = "Front-End developer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "برنامه نویس فرانت اند"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LatinTitle = "Full-Stack developer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "برنامه نویس فول استک"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LatinTitle = "System Support",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "پشتیبان نرم افزار"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LatinTitle = "Software Engineer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "مهندس نرم افزار"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LatinTitle = "Senior developer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "برنامه نویس ارشد"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LatinTitle = "Junior developer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "برنامه نویس مبتدی"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LatinTitle = "Mid-Level developer",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "برنامه نویس میان سطح"
+                        });
                 });
 
             modelBuilder.Entity("DibawinWebsite.Models.LikeAndDislikeReview", b =>
@@ -2367,6 +2503,9 @@ namespace DibawinWebsite.Migrations
 
                     b.Property<string>("ModifiedByUsers");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("Money");
+
                     b.Property<string>("ProjectManagerFullName");
 
                     b.Property<string>("ProjectManagerId");
@@ -2380,6 +2519,8 @@ namespace DibawinWebsite.Migrations
                     b.Property<bool>("Status")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(true);
+
+                    b.Property<string>("Technologies");
 
                     b.Property<string>("Title");
 
@@ -2877,6 +3018,141 @@ namespace DibawinWebsite.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Skills", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DefinedByUserId");
+
+                    b.Property<string>("LatinTitle");
+
+                    b.Property<string>("ModifiedByUsers");
+
+                    b.Property<DateTime>("RegDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DefinedByUserId");
+
+                    b.ToTable("Skills");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LatinTitle = "ASP.Net Core",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "ASP.Net Core"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LatinTitle = "C#",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "C#"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LatinTitle = "HTML5",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "HTML5"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LatinTitle = "CSS3",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "CSS3"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LatinTitle = "JavaScript",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "JavaScript"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LatinTitle = "JQuery",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "JQuery"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LatinTitle = "MVC",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "MVC"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LatinTitle = "React Js",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "React Js"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            LatinTitle = "Angular",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "Angular"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            LatinTitle = "UI",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "UI"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            LatinTitle = "UX",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "UX"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            LatinTitle = "MS SQL Server",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "MS SQL Server"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            LatinTitle = "Python",
+                            RegDateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = false,
+                            Title = "Python"
+                        });
                 });
 
             modelBuilder.Entity("DibawinWebsite.Models.Subject", b =>
@@ -3893,6 +4169,17 @@ namespace DibawinWebsite.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("DibawinWebsite.Models.Employee", b =>
+                {
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "DefinedByUser")
+                        .WithMany("EmployeeDefinedByUser")
+                        .HasForeignKey("DefinedByUserId");
+
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany("UserEmployee")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("DibawinWebsite.Models.Field", b =>
                 {
                     b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "User")
@@ -3981,6 +4268,13 @@ namespace DibawinWebsite.Migrations
                     b.HasOne("DibawinWebsite.Models.ProductFeature", "ProductFeature")
                         .WithMany("InvoiceProduct")
                         .HasForeignKey("ProductFeatureId");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.JobsTitle", b =>
+                {
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "DefinedByUser")
+                        .WithMany("JobsTitle")
+                        .HasForeignKey("DefinedByUserId");
                 });
 
             modelBuilder.Entity("DibawinWebsite.Models.LikeAndDislikeReview", b =>
@@ -4357,6 +4651,13 @@ namespace DibawinWebsite.Migrations
                     b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "User")
                         .WithMany("SiteGeneralInfo")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DibawinWebsite.Models.Skills", b =>
+                {
+                    b.HasOne("DibawinWebsite.Areas.Identity.Data.ApplicationUser", "DefinedByUser")
+                        .WithMany("Skills")
+                        .HasForeignKey("DefinedByUserId");
                 });
 
             modelBuilder.Entity("DibawinWebsite.Models.Subject", b =>

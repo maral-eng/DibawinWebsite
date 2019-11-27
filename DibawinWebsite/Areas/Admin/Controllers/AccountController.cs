@@ -23,7 +23,7 @@ namespace DibawinWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin,SuperVisor")]
-    [MenuItem(Action = "Index",Title = "کاربران", CssIcon = "fa fa-user")]
+    [MenuItem(Action = "Index",Title = "کاربران", CssIcon = "fa fa-user",Order =2)]
     public class AccountController : Controller
     {
         #region Inject

@@ -31,6 +31,11 @@ namespace DibawinWebsite.Models
         public DateTime? Starts { get; set; }
         public DateTime? Ends { get; set; }
 
+        public string Technologies { get; set; } //seperate names with ',' (comma)
+
+        [Column(TypeName = "Money")]
+        public decimal Price { get; set; }
+
         [ForeignKey("ProjectManagerId")]
         public virtual ApplicationUser ProjectManager { get; set; }
 

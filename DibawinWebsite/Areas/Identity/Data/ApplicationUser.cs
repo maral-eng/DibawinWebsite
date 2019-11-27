@@ -130,5 +130,15 @@ namespace DibawinWebsite.Areas.Identity.Data
         [InverseProperty("DefinedByUser")]
         public virtual ICollection<Projects> ProjectDefinedByUser { get; set; }
 
+        public virtual ICollection<JobsTitle> JobsTitle { get; set; }
+
+        public virtual ICollection<Skills> Skills { get; set; }
+
+        [InverseProperty("User")]
+        public virtual ICollection<Employee> UserEmployee { get; set; }
+
+        [InverseProperty("DefinedByUser")]
+        public virtual ICollection<Employee> EmployeeDefinedByUser { get; set; }
+
     }
 }

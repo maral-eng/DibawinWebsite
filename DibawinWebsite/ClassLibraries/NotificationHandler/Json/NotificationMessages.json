@@ -1,4 +1,4 @@
-﻿[
+[
   //====== notice ======
   {
     "Status": true,
@@ -32,7 +32,23 @@
     "Icon": "notice",
     "Subject": "Success_Login"
   },
+  {
+    "Status": true,
+    "Heading": "بازیابی موفقیت آمیز",
+    "Text": "عملیات بازیابی رکورد با موفقیت انجام پذیرفت.",
+    "ColorCode": "#06d79c",
+    "Icon": "notice",
+    "Subject": "Success_Restore"
+  },
   //====== Errors ======
+  {
+    "Status": false,
+    "Heading": "خطا در بازیابی رکورد",
+    "Text": "عملیات بازیابی رکورد با خطا مواجه گردید.",
+    "ColorCode": "#ef5350",
+    "Icon": "error",
+    "Subject": "Failed_Restore"
+  },
   {
     "Status": false,
     "Heading": "خطا در ثبت رکورد",
@@ -132,7 +148,7 @@
   {
     "Status": false,
     "Heading": "داده ورودی تکراری",
-	"Text": "داده ای با اطلاعات مشابه قبلا ثبت شده است، لطفا اطلاعات را اصلاح نمایید.",
+    "Text": "داده ای با اطلاعات مشابه قبلا ثبت شده است، لطفا اطلاعات را اصلاح نمایید.",
     "ColorCode": "#ef5350",
     "Icon": "warning",
     "Subject": "DuplicatedValue"
