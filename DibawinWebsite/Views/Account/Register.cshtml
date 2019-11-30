@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "ثبت نام";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+@model SignupViewModel
+@await Html.PartialAsync("~/Views/shared/header/_breadcrums.cshtml")
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="featured-boxes">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <div class="featured-box featured-box-primary text-left mt-5">
+                            <div class="box-content">
+                                <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3 text-center">ثبت نام در دیباوین</h4>
+                                <hr />
+                                <form asp-action="RegisterConfirm" asp-controller="Account"
+                                      id="frmSignIn" method="post" class="needs-validation">
+                                    <div class="form-row">
+                                        <div class="form-group col">
+                                            <label class="font-weight-bold text-dark text-2">ایمیل</label>
+                                            <input dir="ltr" type="text" class="form-control form-control-lg" asp-for="Username">
+                                            <span asp-validation-for="Username"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6">
+                                            <label class="font-weight-bold text-dark text-2">رمز عبور</label>
+                                            <input dir="ltr" type="password" value="" class="form-control form-control-lg">
+                                            <span asp-validation-for="Password"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label class="font-weight-bold text-dark text-2">ورود مجدد رمز عبور</label>
+                                            <input dir="ltr" type="password" value="" class="form-control form-control-lg">
+                                            <span asp-validation-for="ConfirmPassword"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col">
+                                            <input type="submit" value="ثبت نام" class="btn btn-primary btn-block"
+                                                   data-loading-text="بارگذاری...">
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-row">
+                                        <div class="form-group col text-center">
+                                            <label>ثبت نام کرده اید؟</label>
+                                            <a class="" href="#">ورود به دیباوین</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

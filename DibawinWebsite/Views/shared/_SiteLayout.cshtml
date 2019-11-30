@@ -3,7 +3,7 @@
 <html data-style-switcher-options="{'colorPrimary': '#0088cc', 'colorSecondary': '#0169fe', 'colorTertiary': '#005AEF', 'colorQuaternary': '#383f48'}">
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title | دیباوین</title>
+    <title>  دیباوین | @ViewBag.Title</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
@@ -58,8 +58,6 @@
 
         @await Html.PartialAsync("~/Views/shared/header/_header_light.cshtml")
         <div role="main" class="main">
-            @await Html.PartialAsync("~/Views/shared/header/_slider.cshtml")
-
             @RenderBody()
         </div>
         @await Html.PartialAsync("~/Views/shared/footer/_footer.cshtml")
