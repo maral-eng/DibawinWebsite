@@ -28,3 +28,10 @@ html .text-color-primary, html .text-primary {
 .simple-search {
     direction:rtl;
 }
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    background-color: whitesmoke;
+}

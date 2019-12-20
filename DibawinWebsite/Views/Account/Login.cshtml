@@ -5,7 +5,6 @@
 }
 @model SigninViewModel
 
-@await Html.PartialAsync("~/Views/shared/header/_breadcrums.cshtml")
 <div class="container">
     <div class="row">
         <div class="col">
@@ -16,18 +15,21 @@
                             <div class="box-content">
                                 <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3 text-center">ورود به دیباوین</h4>
                                 <hr />
+                                <div id="divAlert">
+
+                                </div>
                                 <form asp-action="LoginConfirm" asp-controller="Account"
                                       id="frmSignIn" method="post" class="needs-validation">
                                     <div class="form-row">
                                         <div class="form-group col">
-                                            <label class="font-weight-bold text-dark text-2">ایمیل</label>
+                                            <label class="font-weight-bold text-dark text-2">پست الکترونیک</label>
                                             <input dir="ltr" type="text" class="form-control form-control-lg" asp-for="Username">
                                             <span asp-validation-for="Username"></span>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col">
-                                            <a class="float-right" href="#">بازیابی رمز عبور</a>
+                                            <a class="float-right" asp-controller="Account" asp-action="RecoverPassword">بازیابی رمز عبور</a>
                                             <label class="font-weight-bold text-dark text-2">رمز عبور</label>
                                             <input dir="ltr" type="password" value="" class="form-control form-control-lg" asp-for="Password">
                                             <span asp-validation-for="Username"></span>
@@ -65,3 +67,19 @@
         </div>
     </div>
 </div>
+<script src="~/shared/site/assets/vendor/jquery/jquery.min.js"></script>
+@if (TempData["UserMessage"] != null)
+{
+    <script>
+        $(divAlert).html(`
+<div class="mx-auto">
+<div class="alert alert-warning alert-dismissible" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+@TempData["UserMessage"]
+</div>
+</div>
+`);
+        setTimeout(() => { $(divAlert).fadeOut('slow') }, 6000);
+    </script>
+
+}

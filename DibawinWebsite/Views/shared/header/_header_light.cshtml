@@ -812,12 +812,41 @@
                                                 <li>
                                                     <a class="dropdown-item" href="page-faq.html">سوالات متداول</a>
                                                 </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="page-login.html">ورود / ثبت نام</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="page-user-profile.html">پروفایل کاربری</a>
-                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle" href="#">
+                                                کاربران
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <li>
+                                                        <a class="dropdown-item" asp-controller="Account" asp-action="UserProfile">
+                                                            پروفایل کاربری
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                                                            خروج
+                                                        </a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a class="dropdown-item" asp-controller="Account" asp-action="Login">
+                                                            ورود
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" asp-controller="Account" asp-action="Register">
+                                                            ثبت نام
+                                                        </a>
+                                                    </li>
+                                                }
+
+
                                             </ul>
                                         </li>
                                     </ul>
