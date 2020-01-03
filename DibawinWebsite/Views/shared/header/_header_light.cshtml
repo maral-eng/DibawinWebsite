@@ -12,25 +12,33 @@
                             <nav class="header-nav-top">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item nav-item-anim-icon d-none d-md-block">
-                                        <a class="nav-link pl-0" href="about-us.html"><i class="fas fa-angle-left"></i> درباره ما</a>
+                                        <a class="nav-link pl-0" asp-controller="page" asp-action="About">
+                                            <i class="fas fa-angle-left"></i>
+                                            درباره ما
+                                        </a>
                                     </li>
                                     <li class="nav-item nav-item-anim-icon d-none d-md-block">
-                                        <a class="nav-link" href="contact-us.html"><i class="fas fa-angle-left"></i> تماس با ما</a>
-                                    </li>
-                                    <li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
-                                        <a class="nav-link" href="#" role="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="~/shared/site/assets/img/blank.gif" class="flag flag-us" alt="English" /> English
-                                            <i class="fas fa-angle-down"></i>
+                                        <a class="nav-link" asp-controller="page" asp-action="ContactUs">
+                                            <i class="fas fa-angle-left"></i>
+                                            تماس با ما
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-                                            <a class="dropdown-item" href="#"><img src="~/shared/site/assets/img/blank.gif" class="flag flag-us" alt="English" /> English</a>
-                                            <a class="dropdown-item" href="#"><img src="~/shared/site/assets/img/blank.gif" class="flag flag-es" alt="English" /> Español</a>
-                                            <a class="dropdown-item" href="#"><img src="~/shared/site/assets/img/blank.gif" class="flag flag-fr" alt="English" /> Française</a>
-                                        </div>
                                     </li>
+                                    @*<li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
+                                            <a class="nav-link" href="#" role="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="~/shared/site/assets/img/blank.gif" class="flag flag-us" alt="English" /> English
+                                                <i class="fas fa-angle-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownLanguage">
+                                                <a class="dropdown-item" href="#">
+                                                    <img src="~/shared/site/assets/img/blank.gif" class="flag flag-us" alt="English" /> English
+                                                </a>
+                                                <a class="dropdown-item" href="#"><img src="~/shared/site/assets/img/blank.gif" class="flag flag-es" alt="English" /> Español</a>
+                                                <a class="dropdown-item" href="#"><img src="~/shared/site/assets/img/blank.gif" class="flag flag-fr" alt="English" /> Française</a>
+                                            </div>
+                                        </li>*@
                                     <li class="nav-item nav-item-left-border nav-item-left-border-remove nav-item-left-border-sm-show">
                                         <span class="ws-nowrap farsi-num">
-                                            <a href="tel:+989357882695" class="rtl-right-text"><i class="fas fa-phone"></i> 00989357882695</a>
+                                            <a href="#" class="rtl-right-text"><i class="fas fa-phone"></i> 0935-788-2695</a>
                                         </span>
                                     </li>
                                 </ul>
@@ -40,9 +48,14 @@
                     <div class="header-column justify-content-end">
                         <div class="header-row">
                             <ul class="header-social-icons social-icons d-none d-sm-block social-icons-clean">
-                                <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="فیسبوک"><i class="fab fa-facebook-f"></i></a></li>
-                                <li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="توییتر"><i class="fab fa-twitter"></i></a></li>
-                                <li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="لینکدین"><i class="fab fa-linkedin-in"></i></a></li>
+
+                                <li class="social-icons-linkedin">
+                                    <a href="http://www.linkedin.com/" target="_blank" title="لینکدین"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                                <li class="social-icons-instagram">
+                                    <a href="http://www.twitter.com/" target="_blank" title="اینستاگرام"><i class="fab fa-instagram"></i></a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -67,124 +80,14 @@
                                 <nav class="collapse">
                                     <ul class="nav nav-pills" id="mainNav">
                                         <li class="dropdown">
-                                            <a class="dropdown-item dropdown-toggle active" href="index.html">
+                                            <a class="dropdown-item dropdown-toggle active" asp-controller="Home" asp-action="Index">
                                                 صفحه نخست
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="index.html">
-                                                        صفحه لندینگ
-                                                    </a>
-                                                </li>
-                                                <li class="dropdown-submenu">
-                                                    <a class="dropdown-item" href="#">کلاسیک</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="index-classic.html" data-thumb-preview="../../shared/site/assets/img/previews/preview-classic.jpg">کلاسیک - اورجینال</a></li>
-                                                        <li><a class="dropdown-item" href="index-classic-video-light.html" data-thumb-preview="../../shared/site/assets/img/previews/preview-classic-video-light.jpg">کلاسیک - ویدئویی - لایت</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
                                         </li>
-
                                         <li class="dropdown">
-                                            <a class="dropdown-item dropdown-toggle" href="#">
-                                                نمونه کارها
+                                            <a class="dropdown-item dropdown-toggle" asp-controller="Home" asp-action="Index">
+                                                طراحی سایت
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="dropdown-submenu">
-                                                    <a class="dropdown-item" href="#">هدر ها</a>
-                                                </li>
-
-                                                <li class="dropdown-submenu">
-                                                    <a class="dropdown-item" href="#">هدر صفحات</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="feature-page-headers-overview.html">Overview</a></li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">Classic</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="feature-page-headers-classic-small.html">Small</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-classic-medium.html">Medium</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-classic-large.html">Large</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">Modern</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="feature-page-headers-modern-small.html">Small</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-modern-medium.html">Medium</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-modern-large.html">Large</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">Colors</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="feature-page-headers-colors-primary.html">Primary</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-colors-secondary.html">Secondary</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-colors-tertiary.html">Tertiary</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-colors-quaternary.html">Quaternary</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-colors-light.html">Light</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-colors-dark.html">Dark</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">Title Position</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li class="dropdown-submenu">
-                                                                    <a class="dropdown-item" href="#">Left</a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-left-small.html">Small</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-left-medium.html">Medium</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-left-large.html">Large</a></li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li class="dropdown-submenu">
-                                                                    <a class="dropdown-item" href="#">Right</a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-right-small.html">Small</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-right-medium.html">Medium</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-right-large.html">Large</a></li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li class="dropdown-submenu">
-                                                                    <a class="dropdown-item" href="#">Center</a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-center-small.html">Small</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-center-medium.html">Medium</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-title-position-center-large.html">Large</a></li>
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">Background</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-fixed.html">Fixed</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-parallax.html">Parallax</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-video.html">Video</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-transparent-header.html">Transparent Header</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-pattern.html">Pattern</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-overlay.html">Overlay</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-background-clean.html">Clean (No Background)</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">Extra</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li class="dropdown-submenu">
-                                                                    <a class="dropdown-item" href="#">Breadcrumb</a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-extra-breadcrumb-outside.html">Outside</a></li>
-                                                                        <li><a class="dropdown-item" href="feature-page-headers-extra-breadcrumb-dark.html">Dark</a></li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-extra-scroll-to-content.html">Scroll to Content</a></li>
-                                                                <li><a class="dropdown-item" href="feature-page-headers-extra-full-width.html">Full Width</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-
-                                            </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a class="dropdown-item dropdown-toggle" asp-controller="blog" asp-action="index">
@@ -200,7 +103,6 @@
                                                     <a class="dropdown-item" asp-controller="page" asp-action="About">
                                                         درباره ما
                                                     </a>
-
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item" asp-controller="page" asp-action="ContactUs">
@@ -208,10 +110,9 @@
                                                     </a>
 
                                                 </li>
-
-
                                             </ul>
                                         </li>
+
                                         <li class="dropdown">
                                             <a class="dropdown-item dropdown-toggle" href="#">
                                                 کاربران
@@ -254,23 +155,23 @@
                                 <i class="fas fa-bars"></i>
                             </button>
                         </div>
-                        <div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-                            <div class="header-nav-feature header-nav-features-search d-inline-flex">
-                                <a href="#" class="header-nav-features-toggle" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
-                                <div class="header-nav-features-dropdown" id="headerTopSearchDropdown">
-                                    <form role="search" action="https://preview.oklerthemes.com/porto/7.6.0/page-search-results.html" method="get">
-                                        <div class="simple-search input-group">
-                                            <input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="جستجو...">
-                                            <span class="input-group-append">
-                                                <button class="btn" type="submit">
-                                                    <i class="fa fa-search header-nav-top-icon"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </form>
+                        @*<div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
+                                <div class="header-nav-feature header-nav-features-search d-inline-flex">
+                                    <a href="#" class="header-nav-features-toggle" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
+                                    <div class="header-nav-features-dropdown" id="headerTopSearchDropdown">
+                                        <form role="search" action="https://preview.oklerthemes.com/porto/7.6.0/page-search-results.html" method="get">
+                                            <div class="simple-search input-group">
+                                                <input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="جستجو...">
+                                                <span class="input-group-append">
+                                                    <button class="btn" type="submit">
+                                                        <i class="fa fa-search header-nav-top-icon"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                     </div>
                 </div>
             </div>
